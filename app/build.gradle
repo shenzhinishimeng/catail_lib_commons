@@ -23,10 +23,8 @@ android {
         }
     }
     compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_10
-        targetCompatibility JavaVersion.VERSION_1_10
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -41,6 +39,6 @@ dependencies {
 
     implementation project(':Lib_Common')
 
-//    implementation 'com.github.shenzhinishimeng:catail_lib_commons:1.0.2'
+//    implementation 'com.github.shenzhinishimeng:catail_lib_commons:1.0.3'
 
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.catail.lib_commons.utils.Logger;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
