@@ -28,9 +28,55 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //第三方工具类.
+    api 'androidx.recyclerview:recyclerview:1.3.0'//recyclerview
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    api 'com.lzy.net:okgo:3.0.4'//okgo 网络访问
+    api 'com.zhy:okhttputils:2.6.2'//okhttputils
+    api 'com.google.code.gson:gson:2.8.6'
+
+    api 'com.blankj:utilcode:1.20.3'  //各种工具类
+
+    api 'me.jessyan:autosize:1.2.1'//屏幕适配
+    api 'com.gyf.immersionbar:immersionbar:3.0.0'//沉浸式状态栏插件
+
+    api 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
+
+    api 'com.bm.photoview:library:1.4.1'
+    api 'top.zibin:Luban:1.1.8'//Android图片压缩工具，仿微信朋友圈压缩策略。
+    //glide
+    api "com.github.bumptech.glide:glide:4.10.0"
+    api "com.github.bumptech.glide:compiler:4.10.0"
+    api "com.github.bumptech.glide:okhttp3-integration:4.10.0"
+
+    /**********************************************************************/
+    //第三方工具类.
+//    implementation 'androidx.recyclerview:recyclerview:1.3.0'//recyclerview
+//    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+//
+//    implementation 'com.lzy.net:okgo:3.0.4'//okgo 网络访问
+//    implementation 'com.zhy:okhttputils:2.6.2'//okhttputils
+//    implementation 'com.google.code.gson:gson:2.8.6'
+//
+//    implementation 'com.blankj:utilcode:1.20.3'  //各种工具类
+//
+//    implementation 'me.jessyan:autosize:1.2.1'//屏幕适配
+//    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'//沉浸式状态栏插件
+//
+//    implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
+//
+//    implementation 'com.bm.photoview:library:1.4.1'
+//    implementation 'top.zibin:Luban:1.1.8'//Android图片压缩工具，仿微信朋友圈压缩策略。
+//    //glide
+//    implementation "com.github.bumptech.glide:glide:4.10.0"
+//    implementation "com.github.bumptech.glide:compiler:4.10.0"
+//    implementation "com.github.bumptech.glide:okhttp3-integration:4.10.0"
+
 }

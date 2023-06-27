@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.catail.lib_commons.utils.Logger;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Logger.e("测试");
+//        Logger.e("测试");
+//        Logger.e("测试");
+//        Logger.e("测试");
+        Logger.e("");
     }
 }
