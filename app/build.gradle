@@ -39,5 +39,5 @@ dependencies {
 
     implementation project(':Lib_Common')
 
-//    implementation 'com.github.shenzhinishimeng:catail_lib_commons:1.0.5'
+//    implementation 'com.github.shenzhinishimeng:catail_lib_commons:1.0.8'
 }

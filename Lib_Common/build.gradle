@@ -39,8 +39,6 @@ android {
 }
 
 dependencies {
-
-
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -59,7 +57,6 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.6'
 
     api 'com.blankj:utilcode:1.20.3'  //各种工具类
-
     api 'me.jessyan:autosize:1.2.1'//屏幕适配
     api 'com.gyf.immersionbar:immersionbar:3.0.0'//沉浸式状态栏插件
 
@@ -76,10 +73,12 @@ dependencies {
     api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.0'//图片选择
     api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.0'//图片编辑
 
+    api 'com.contrarywind:Android-PickerView:4.1.2'    //时间选择插件
+    api 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.4'    //PDF插件
 
     // AndroidX 版本
 //    implementation 'com.github.jenly1314:zxing-lite:2.4.0'
-    implementation 'com.github.jenly1314:zxing-lite:2.2.1'
+    api 'com.github.jenly1314:zxing-lite:2.2.1'
 
     //统一管理依赖库.
 
