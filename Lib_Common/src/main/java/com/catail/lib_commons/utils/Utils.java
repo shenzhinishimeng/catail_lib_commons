@@ -536,7 +536,7 @@ public class Utils {
         String[] imgStr = OriginalUrl.split("/");
         for (int i = 0; i < imgStr.length; i++) {
             if (i == imgStr.length - 1) {
-                thambulr = thambulr + SHELL_ConstantValue.ThambStr + imgStr[i];
+                thambulr = thambulr + Global.ThambStr + imgStr[i];
             } else {
                 thambulr += imgStr[i] + "/";
             }
@@ -571,29 +571,7 @@ public class Utils {
     }
 
 
-    public static void DownLoadPic(String url, BaseActivity activity) {
-        OkHttpUtils//
-                .get()//
-                .url(url)//
-                .build()//
-                .execute(new FileCallBack(SHELL_Config.CAMERA_PATH,
-                        System.currentTimeMillis() + ".jpg") {
-                    public void inProgress(float progress) {
-                        Logger.e("inProgress==", progress + "");
-                    }
 
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        Logger.e("onError==", e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(File file, int id) {
-                        Logger.e("onResponse==", file.getAbsolutePath());
-                        ToastUtils.toastStr(activity, activity.getResources().getString(R.string.add_success));
-                    }
-                });
-    }
 
     public static void setAlertDialogSize(AppCompatActivity activity, AlertDialog dialog, double size) {
         int width = activity.getWindowManager().getDefaultDisplay().getWidth();
@@ -609,19 +587,7 @@ public class Utils {
         dialog.getWindow().setBackgroundDrawable(null);
     }
 
-    public static String getPTWType() {
-        String ptw_mode = "";
-        try {
-            ProjectAndPermissionBean projectAndPermissionBean = (ProjectAndPermissionBean) Common
-                    .stringToObject(Preference.getSysparamFromSp(SHELL_Config.PROJECT_PERMISSION));
-            ptw_mode = projectAndPermissionBean.getPtw_mode();
 
-            return ptw_mode;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ptw_mode;
-        }
-    }
 
     public static String getCurrentYYDate() {
         SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
