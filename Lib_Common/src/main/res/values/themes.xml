@@ -82,21 +82,6 @@
 
     </style>
 
-    <style name="push_alias">
-        <item name="android:hint">@string/alias_hint</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="push_mobilenumber">
-        <item name="android:hint">@string/mobilenumber_hint</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="push_tag">
-        <item name="android:hint">@string/tag_hint</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
     <style name="buttonDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/blue_textcolor_39bcca</item>
     </style>
@@ -111,9 +96,4 @@
         <item name="android:textColor">@color/white_textcolor_FFFFFF</item>
         <item name="android:textSize">@dimen/textsize_17</item>
     </style>
-
-
-
-
-
 </resources>

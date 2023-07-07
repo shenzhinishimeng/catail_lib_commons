@@ -86,8 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     /**
      * 显示吐司消息
-     *
-     * @param msg 吐司消息
      */
     public void showToast(final String msg) {
         runOnUiThread(new Runnable() {
@@ -98,9 +96,17 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 }
             }
         });
-
     }
 
+    /**
+     * 显示吐司消息
+     */
+    public void showNoDataToast() {
+        runOnUiThread(() -> {
+            Toast.makeText(BaseActivity.this, getResources().getString(R.string.no_data),
+                    Toast.LENGTH_SHORT).show();
+        });
+    }
 
     @Override
     public void applyOverrideConfiguration(Configuration overrideConfiguration) {

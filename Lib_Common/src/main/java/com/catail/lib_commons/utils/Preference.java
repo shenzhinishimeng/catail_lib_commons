@@ -25,7 +25,6 @@ public class Preference {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			Log.e("error", "保存参数:" + e.getMessage());
 			throw new Exception("参数保存异常");
 		}
@@ -41,7 +40,6 @@ public class Preference {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			throw new Exception("获取参数异常");
 		}
 		return null;
