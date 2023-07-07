@@ -40,11 +40,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.catail.lib_commons.CommonsApplication;
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.base.BaseActivity;
-import com.catail.lib_commons.bean.ProjectAndPermissionBean;
 import com.finddreams.languagelib.LanguageType;
 import com.finddreams.languagelib.MultiLanguageUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,11 +58,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import okhttp3.Call;
 
 public class Utils {
     /**
