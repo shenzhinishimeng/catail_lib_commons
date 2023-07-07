@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import com.catail.lib_commons.CommonsApplication;
 
+
 public class SHELL_Config {
     public static final int PROJECT_CONTACT = 1;// 项目通讯录
     public static final int PROJECT_MEMBER = 100;// 成员

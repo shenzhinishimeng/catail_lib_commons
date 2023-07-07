@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.Utils;
 import com.catail.lib_commons.utils.Preference;
+import com.finddreams.languagelib.MultiLanguageUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ public class CommonsApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        init();//初始化基本数据
-
-        initOkHttp();
-
-        Utils.init(this);//初始化各种工具类
+//        init();//初始化基本数据
+//
+//        initOkHttp();
+//        Utils.init(this);//初始化各种工具类
+        initMultiLanguage();//多语言切换
     }
 
 
@@ -62,5 +63,8 @@ public class CommonsApplication extends Application {
 
         OkHttpUtils.initClient(okHttpClient);
 
+    }
+    private void initMultiLanguage() {
+        MultiLanguageUtil.init(this);
     }
 }

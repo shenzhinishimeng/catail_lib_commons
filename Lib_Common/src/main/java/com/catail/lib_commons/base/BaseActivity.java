@@ -22,7 +22,6 @@ import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity  {
     //    private ImmersionBar mImmersionBar;
-    protected List<BaseApi> mApiList = new ArrayList<BaseApi>();
     private final String TAG = getClass().getSimpleName();
     protected ContentResolver mContentResolver;
     private ImmersionBar mImmersionBar;
