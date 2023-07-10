@@ -1,4 +1,4 @@
-package com.catail.lib_commons.basecontract;
+package com.catail.lib_commons.interfaces;
 
 
 import com.catail.lib_commons.base.BaseApi;

@@ -3,7 +3,7 @@ package com.catail.lib_commons.base;
 import android.app.AlertDialog;
 import android.content.Context;
 
-import com.catail.lib_commons.basecontract.IApiHolder;
+import com.catail.lib_commons.interfaces.IApiHolder;
 import com.catail.lib_commons.net.NetResponseError;
 import com.catail.lib_commons.net.OkHttpManager;
 import com.catail.lib_commons.utils.Logger;
