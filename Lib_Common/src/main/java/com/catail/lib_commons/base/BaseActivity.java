@@ -7,17 +7,17 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
-import com.catail.lib_commons.CommonsApplication;
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.utils.Logger;
 import com.catail.lib_commons.utils.Utils;
 import com.finddreams.languagelib.MultiLanguageUtil;
 import com.gyf.immersionbar.ImmersionBar;
 
-public abstract class BaseActivity extends AppCompatActivity  {
+public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     private final String TAG = getClass().getSimpleName();
     protected ContentResolver mContentResolver;
@@ -29,12 +29,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         Logger.e("当前Activity名称==", TAG);
-        CommonsApplication.activityList.add(this);
         mContext = this;
         mContentResolver = getContentResolver();
         initImmersionBar(R.color.white_background_FFFFFF);//初始化沉浸式状态栏
         initView();
-
         initData();
     }
 
@@ -45,7 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     /**
      * 返回当前Activity布局文件的id
-     *
      */
     abstract protected int getLayoutResId();
 
@@ -62,9 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         if (loadingDialog == null) {
             loadingDialog = Utils.createLoadingDialog(BaseActivity.this, msg);
         }
-        if (loadingDialog != null) {
-            loadingDialog.show();
-        }
+        loadingDialog.show();
     }
 
     /**
@@ -142,9 +137,4 @@ public abstract class BaseActivity extends AppCompatActivity  {
         mImmersionBar.init();//初始化
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        CommonsApplication.activityList.remove(this);
-    }
 }
