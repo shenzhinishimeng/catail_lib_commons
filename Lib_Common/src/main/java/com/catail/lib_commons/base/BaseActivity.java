@@ -55,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 显示ProgressDialog
      */
-    protected void showProgressDialog(String msg) {
+    public void showProgressDialog(String msg) {
         if (loadingDialog == null) {
             loadingDialog = Utils.createLoadingDialog(BaseActivity.this, msg);
         }
@@ -65,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 隐藏progressDialog
      */
-    protected void dismissProgressDialog() {
+    public void dismissProgressDialog() {
         if (loadingDialog != null) {
             loadingDialog.dismiss();
             loadingDialog = null;
