@@ -27,10 +27,12 @@ public abstract class BaseVisibleInitFragment extends Fragment implements UiOpra
         return view;
     }
 
+
     /**
      * 指示Fragment是否是第一次显示
      */
-    private boolean firstShow = true;
+    public boolean firstShow = true;
+    public boolean isVisibleToUser;
 
     /**
      * 这个方法会由系统调用，当Fragment的可见性发生改变的时候会调用
