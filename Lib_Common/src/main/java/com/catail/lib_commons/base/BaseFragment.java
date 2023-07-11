@@ -22,8 +22,6 @@ public abstract class BaseFragment extends Fragment implements UiOpration {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getContentViewLayoutId(), null);
         initView(view);
-//        initData();
-        initListener();
         return view;
     }
 

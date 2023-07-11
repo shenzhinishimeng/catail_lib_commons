@@ -9,8 +9,4 @@ public interface UiOpration {
     void initView(View view);
 
     void initData();
-
-    void initListener();
-
-
 }

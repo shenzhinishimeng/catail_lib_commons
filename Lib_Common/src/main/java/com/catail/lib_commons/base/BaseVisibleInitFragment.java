@@ -24,7 +24,6 @@ public abstract class BaseVisibleInitFragment extends Fragment implements UiOpra
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getContentViewLayoutId(), null);
         initView(view);
-        initListener();
         return view;
     }
 
