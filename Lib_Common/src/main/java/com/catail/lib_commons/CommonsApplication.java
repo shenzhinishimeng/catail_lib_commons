@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import com.blankj.utilcode.util.Utils;
-import com.catail.lib_commons.utils.Preference;
 import com.finddreams.languagelib.MultiLanguageUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -44,7 +42,6 @@ public class CommonsApplication extends Application {
         activityList = new ArrayList<>();
         picActivityList = new ArrayList<>();
         picArrayList = new ArrayList<>();
-        Preference.createSysparamSp(getApplicationContext());
     }
 
     private void initOkHttp() {

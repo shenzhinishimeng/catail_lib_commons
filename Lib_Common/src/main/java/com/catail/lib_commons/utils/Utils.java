@@ -11,12 +11,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,6 +24,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -36,6 +35,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 import com.catail.lib_commons.CommonsApplication;
 import com.catail.lib_commons.R;
@@ -44,15 +44,18 @@ import com.finddreams.languagelib.LanguageType;
 import com.finddreams.languagelib.MultiLanguageUtil;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -63,33 +66,19 @@ public class Utils {
     /**
      * 检查当前网络是否可用
      */
-    public static boolean isNetworkAvailable(Context context) {
-
+    public static boolean isNetworkAvailable(BaseActivity activity) {
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
+        ConnectivityManager connectivityManager = (ConnectivityManager) activity
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (connectivityManager == null) {
             return false;
         } else {
             NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
-            NetworkInfo activeNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (activeNetInfo.isConnected()) {
-                // Toast.makeText(context,
-                // CommonsApplication.context.getResources().getString(R.string.wifi),
-                // Toast.LENGTH_SHORT).show();
-                Logger.e("wifi链接");
-            }
-            if (mobNetInfo.isConnected()) {
-                // Toast.makeText(context,
-                // CommonsApplication.context.getResources().getString(R.string.liuliang),
-                // Toast.LENGTH_SHORT).show();
-                Logger.e("流量链接");
-            }
-            if (networkInfo != null && networkInfo.length > 0) {
+            if (networkInfo.length > 0) {
                 for (NetworkInfo info : networkInfo) {
                     // 判断当前网络状态是否为连接状态
+                    Logger.e("info.getState()==" + info.getState());
                     if (info.getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
@@ -126,19 +115,18 @@ public class Utils {
 //                Logger.e("language=", language);
 //                Logger.e("country=", country);
                 String languageAndCountry = language + "-" + country;
-                switch (languageAndCountry) {
-                    case "zh-":
-                        return 0;
-                    case "zh-CN":
-                        return 0;
-                    case "en-":
-                        return 1;
-                    case "en-US":
-                        return 1;
-                    case "en-SG":
-                        return 1;
-                    default:
-                        return 1;
+                if (languageAndCountry.equals("zh-")) {
+                    return 0;
+                } else if (languageAndCountry.equals("zh-CN")) {
+                    return 0;
+                } else if (languageAndCountry.equals("en-")) {
+                    return 1;
+                } else if (languageAndCountry.equals("en-US")) {
+                    return 1;
+                } else if (languageAndCountry.equals("en-SG")) {
+                    return 1;
+                } else {
+                    return 1;
                 }
             } else {
                 Resources res = CommonsApplication.getContext().getResources();
@@ -147,19 +135,18 @@ public class Utils {
 //                Logger.e("local", locale.getLanguage());
 //                Logger.e("country", locale.getCountry());
                 String languageAndCountry = locale.getLanguage() + locale.getCountry();
-                switch (languageAndCountry) {
-                    case "zh-":
-                        return 0;
-                    case "zh-CN":
-                        return 0;
-                    case "en-":
-                        return 1;
-                    case "en-US":
-                        return 1;
-                    case "en-SG":
-                        return 1;
-                    default:
-                        return 1;
+                if (languageAndCountry.equals("zh-")) {
+                    return 0;
+                } else if (languageAndCountry.equals("zh-CN")) {
+                    return 0;
+                } else if (languageAndCountry.equals("en-")) {
+                    return 1;
+                } else if (languageAndCountry.equals("en-US")) {
+                    return 1;
+                } else if (languageAndCountry.equals("en-SG")) {
+                    return 1;
+                } else {
+                    return 1;
                 }
             }
         } else {
@@ -177,8 +164,9 @@ public class Utils {
         // 获取原始图片与水印图片的宽与高
         int width = src.getWidth();
         int height = src.getHeight();
-
-        Bitmap newBitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+        Logger.e("width==" + width);
+        Logger.e("height==" + height);
+        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas mCanvas = new Canvas(newBitmap);
         // 往位图中开始画入src原始图片
         mCanvas.drawBitmap(src, 0, 0, null);
@@ -203,10 +191,11 @@ public class Utils {
             String familyName = "宋体";
             Typeface typeface = Typeface.create(familyName, Typeface.BOLD_ITALIC);
             textPaint.setTypeface(typeface);
-            textPaint.setTextAlign(Align.LEFT);
+            textPaint.setTextAlign(Paint.Align.LEFT);
             float textWidth = textPaint.measureText(title);
             // 文字 添加位置
             mCanvas.drawText(title, width - textWidth - 10, height - 26, textPaint);
+
         }
 //        mCanvas.save(Canvas.ALL_SAVE_FLAG);
         mCanvas.save();
@@ -219,19 +208,25 @@ public class Utils {
      * 删除原图保存水印照片方法
      */
     public static void saveBitmap(Uri captureFileUri, Bitmap bm) {
-        File f = new File(captureFileUri.getPath());
-        if (f.exists()) {
-            f.delete();
-        }
         try {
+            File f = new File(captureFileUri.getPath());
+            Logger.e("captureFileUri.getPath()=" + captureFileUri.getPath());
+            if (f.exists()) {
+                f.delete();
+                Logger.e("f.delete()");
+            } else {
+                Logger.e("f.delete()==no");
+            }
+
             FileOutputStream out = new FileOutputStream(f);
             // 压缩图片 80 是压缩率，表示压缩20%; 如果不压缩是100，
-            bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            bm.compress(Bitmap.CompressFormat.JPEG, 40, out);
             out.flush();
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -252,8 +247,6 @@ public class Utils {
             e.printStackTrace();
         }
     }
-
-    public static int IMAGE_MAX_SIZE = 1024;
 
     public static Bitmap DealTakePhoto(ContentResolver mContentResolver, String path) {
         Uri uri = Uri.fromFile(new File(path));
@@ -288,7 +281,6 @@ public class Utils {
         }
         return null;
     }
-
 
     /**
      * 获取进程号对应的进程名
@@ -346,39 +338,41 @@ public class Utils {
 
     }
 
-
     /**
      * 得到自定义的progressDialog
      */
     public static Dialog createLoadingDialog(Activity context, String msg) {
-        while (context.getParent() != null) {
-            context = context.getParent();
-        }
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.loading_dialog, null);// 得到加载view
-        LinearLayout layout = v.findViewById(R.id.dialog_view);// 加载布局
-        // main.xml中的ImageView
-        ImageView spaceshipImage = v.findViewById(R.id.img);
-        TextView tipTextView = v.findViewById(R.id.tipTextView);// 提示文字
-        // 加载动画
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
-                context, R.anim.load_animation);
-        // 使用ImageView显示动画
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-        tipTextView.setText(msg);// 设置加载信息
+        try {
+            while (context.getParent() != null) {
+                context = context.getParent();
+            }
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View v = inflater.inflate(R.layout.loading_dialog, null);// 得到加载view
+            LinearLayout layout = v.findViewById(R.id.dialog_view);// 加载布局
+            // main.xml中的ImageView
+            ImageView spaceshipImage = v.findViewById(R.id.img);
+            TextView tipTextView = v.findViewById(R.id.tipTextView);// 提示文字
+            // 加载动画
+            Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
+                    context, R.anim.load_animation);
+            // 使用ImageView显示动画
+            spaceshipImage.startAnimation(hyperspaceJumpAnimation);
+            tipTextView.setText(msg);// 设置加载信息
 
-        Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
+            Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
 
 //        loadingDialog.setCancelable(false);// 不可以用“返回键”取消
-        loadingDialog.setCanceledOnTouchOutside(false);//点击对话框外不可以取消
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));// 设置布局
-        return loadingDialog;
-
+            loadingDialog.setCanceledOnTouchOutside(false);//点击对话框外不可以取消
+            loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT));// 设置布局
+            return loadingDialog;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public static Dialog loadingDialog;
 
     /**
      * 在某些没有baseActivity使用progressDialog出现方法
@@ -464,6 +458,7 @@ public class Utils {
         return null;
     }
 
+
     public static String getDataColumn(Context context, Uri uri, String selection,
                                        String[] selectionArgs) {
         Cursor cursor = null;
@@ -522,52 +517,48 @@ public class Utils {
         return tempPhotoLists;
     }
 
-
     public static String OriginalUrlToThumbUrl(String OriginalUrl) {
-        String thambulr = "";
+        StringBuilder thambulr = new StringBuilder();
         String[] imgStr = OriginalUrl.split("/");
         for (int i = 0; i < imgStr.length; i++) {
             if (i == imgStr.length - 1) {
-                thambulr = thambulr + Global.ThambStr + imgStr[i];
+                thambulr.append(Global.ThambStr).append(imgStr[i]);
             } else {
-                thambulr += imgStr[i] + "/";
+                thambulr.append(imgStr[i]).append("/");
             }
         }
-        Logger.e("thamburl==", thambulr);
-        return thambulr;
+        Logger.e("thamburl==", thambulr.toString());
+        return thambulr.toString();
     }
 
-
     public static String ThumbUrlToOriginalUrl(String OriginalUrl) {
-        String thambulr = "";
+        StringBuilder thambulr = new StringBuilder();
         String[] imgStr = OriginalUrl.split("/");
         for (int i = 0; i < imgStr.length; i++) {
             if (i == imgStr.length - 1) {
                 String substring = imgStr[i].substring(6);
-                thambulr = thambulr + substring;
+                thambulr.append(substring);
             } else {
-                thambulr += imgStr[i] + "/";
+                thambulr.append(imgStr[i]).append("/");
             }
         }
-        Logger.e("thamburl==", thambulr);
-        return thambulr;
+        Logger.e("thamburl==", thambulr.toString());
+        return thambulr.toString();
     }
 
     public static String getStackTraceStr(Exception e) {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < e.getStackTrace().length; i++) {
 //            Logger.e(i + "==" + (e.getStackTrace())[i].toString());
-            s += (e.getStackTrace())[i].toString() + "\n";
+            s.append((e.getStackTrace())[i].toString()).append("\n");
         }
-        return s;
+        return s.toString();
     }
-
-
-
 
     public static void setAlertDialogSize(AppCompatActivity activity, AlertDialog dialog, double size) {
         int width = activity.getWindowManager().getDefaultDisplay().getWidth();
         int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+//        Logger.e("(int) (width * size)=="+((int) (width * size))+"");
         if (size != 0) {
             dialog.getWindow().setLayout((int) (width * size), ActionBar.LayoutParams.WRAP_CONTENT);
         } else {
@@ -575,24 +566,48 @@ public class Utils {
         }
     }
 
+    public static void setAlertDialogSize(AppCompatActivity activity, AlertDialog dialog,
+                                          double width_size, double height_size) {
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+//        Logger.e("(int) (width * size)=="+((int) (width * size))+"");
+        if (width_size != 0) {
+            dialog.getWindow().setLayout((int) (width * width_size), ActionBar.LayoutParams.WRAP_CONTENT);
+        } else {
+            dialog.getWindow().setLayout((int) (width * 0.88), ActionBar.LayoutParams.WRAP_CONTENT);
+        }
+        if (height_size != 0) {
+            dialog.getWindow().setLayout(ActionBar.LayoutParams.WRAP_CONTENT, (int) (height * height_size));
+        } else {
+            dialog.getWindow().setLayout(ActionBar.LayoutParams.WRAP_CONTENT, (int) (height * 0.88));
+        }
+
+    }
+
     public static void setAlertDialogConner(AlertDialog dialog) {
         dialog.getWindow().setBackgroundDrawable(null);
     }
 
+    public static String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");// a为am/pm的标记
+        Date date = new Date();// 获取当前时间
+        return DateFormatUtils.DatetoCNDate(date);
 
+    }
+
+    public static String getCurrentCNDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("yyyy-MM-dd");// a为am/pm的标记
+        Date date = new Date();// 获取当前时间
+        return DateFormatUtils.DatetoCNStrNo(date);
+    }
 
     public static String getCurrentYYDate() {
         SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
         sdf.applyPattern("yyyy-MM-dd");// a为am/pm的标记
         Date date = new Date();// 获取当前时间
         return DateFormatUtils.DatetoCNStrYY(date);
-    }
-
-    public static String getCurrentCNDate() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dateStr = sdf.format(calendar.getTime());
-        return dateStr;
     }
 
     public static boolean CheckStartDateAndEndDate(
@@ -609,11 +624,11 @@ public class Utils {
         } else {
             if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate)) {
                 if (TextUtils.isEmpty(startDate)) {
-                    activity.showToast(activity.getResources().getString(R.string.please_select_a_start_date));
+                    activity.showToast(activity.getResources().getString(com.catail.lib_commons.R.string.please_select_a_start_date));
                 }
 
                 if (TextUtils.isEmpty(endDate)) {
-                    activity.showToast(activity.getResources().getString(R.string.please_select_an_end_date));
+                    activity.showToast(activity.getResources().getString(com.catail.lib_commons.R.string.please_select_an_end_date));
                 }
                 return false;
             } else {
@@ -621,7 +636,7 @@ public class Utils {
                 String endDateYY = endDate.substring(0, 4);
 
                 if (!startDateYY.equals(endDateYY)) {
-                    activity.showToast(activity.getResources().getString(R.string.please_select_the_same_year));
+                    activity.showToast(activity.getResources().getString(com.catail.lib_commons.R.string.please_select_the_same_year));
                     return false;
                 } else {
                     return true;
@@ -636,6 +651,179 @@ public class Utils {
         //保留2位小数
         return b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 
+    }
+
+    /**
+     * 对象转字符串
+     */
+    public static String objectToString(Object object) throws IOException {
+        // 创建字节输出流
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // 创建字节对象输出流
+        ObjectOutputStream out;
+        // 然后通过将字对象进行64转码，写入key值为key的sp中
+        out = new ObjectOutputStream(baos);
+        out.writeObject(object);
+        String objectVal = new String(Base64.encode(baos.toByteArray(),
+                Base64.DEFAULT));
+        out.close();
+        out.close();
+        baos.close();
+        return objectVal;
+    }
+
+    /**
+     * 字符串转对象
+     */
+    public static Object stringToObject(String objectVal) throws IOException,
+            ClassNotFoundException {
+        byte[] buffer = Base64.decode(objectVal, Base64.DEFAULT);
+        // 通过读取字节流，创建字节流输入流，写入对象
+        ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+        ObjectInputStream ois;
+        ois = new ObjectInputStream(bais);
+        Object object = ois.readObject();
+        bais.close();
+        ois.close();
+        return object;
+    }
+
+
+    public static Dialog loadingDialog;
+
+
+
+
+    /**
+     * 删除原图保存水印照片方法
+     */
+    public static void saveStringBitmap(String captureFileUri, Bitmap bm) {
+        try {
+            File f = new File(captureFileUri);
+            Logger.e("captureFileUri.getPath()=" + captureFileUri);
+            if (f.exists()) {
+                f.delete();
+                Logger.e("f.delete()");
+            } else {
+                Logger.e("f.delete()==no");
+            }
+
+            FileOutputStream out = new FileOutputStream(f);
+            // 压缩图片 80 是压缩率，表示压缩20%; 如果不压缩是100，
+            bm.compress(Bitmap.CompressFormat.JPEG, 40, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //删除文件夹
+    public static void delFolder(String folderPath) {
+        try {
+            delAllFile(folderPath); //删除完里面所有内容
+            String filePath = folderPath;
+            java.io.File myFilePath = new java.io.File(filePath);
+            myFilePath.delete(); //删除空文件夹
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //删除指定文件夹下的所有文件
+    public static boolean delAllFile(String path) {
+        boolean flag = false;
+        File file = new File(path);
+        if (!file.exists()) {
+            return flag;
+        }
+        if (!file.isDirectory()) {
+            return flag;
+        }
+        String[] tempList = file.list();
+        File temp;
+        for (String s : tempList) {
+            if (path.endsWith(File.separator)) {
+                temp = new File(path + s);
+            } else {
+                temp = new File(path + File.separator + s);
+            }
+            if (temp.isFile()) {
+                temp.delete();
+            }
+            if (temp.isDirectory()) {
+                delAllFile(path + "/" + s);//先删除文件夹里面的文件
+                delFolder(path + "/" + s);//再删除空文件夹
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+
+    /**
+     * 以指定的缩放比例去缩放TextView
+     */
+    public static void scaleView(TextView textView, float scale) {
+        ViewCompat.animate(textView).scaleX(scale).scaleY(scale);
+    }
+
+
+    public static void scaleView3(TextView textView1, TextView textView2, TextView textView3,
+                                  int postion) {
+        float scale_12 = (float) 1.2;
+        float scale_10 = (float) 1.0;
+        if (postion == 0) {
+            ViewCompat.animate(textView1).scaleX(scale_12).scaleY(scale_12);
+            ViewCompat.animate(textView2).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView3).scaleX(scale_10).scaleY(scale_10);
+        } else if (postion == 1) {
+            ViewCompat.animate(textView1).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView2).scaleX(scale_12).scaleY(scale_12);
+            ViewCompat.animate(textView3).scaleX(scale_10).scaleY(scale_10);
+        } else if (postion == 2) {
+            ViewCompat.animate(textView1).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView2).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView3).scaleX(scale_12).scaleY(scale_12);
+        }
+    }
+
+    public static void scaleView4(TextView textView1, TextView textView2, TextView textView3,
+                                  TextView textView4, int postion) {
+        float scale_12 = (float) 1.2;
+        float scale_10 = (float) 1.0;
+        if (postion == 0) {
+            ViewCompat.animate(textView1).scaleX(scale_12).scaleY(scale_12);
+            ViewCompat.animate(textView2).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView3).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView4).scaleX(scale_10).scaleY(scale_10);
+        } else if (postion == 1) {
+            ViewCompat.animate(textView1).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView2).scaleX(scale_12).scaleY(scale_12);
+            ViewCompat.animate(textView3).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView4).scaleX(scale_10).scaleY(scale_10);
+        } else if (postion == 2) {
+            ViewCompat.animate(textView1).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView2).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView3).scaleX(scale_12).scaleY(scale_12);
+            ViewCompat.animate(textView4).scaleX(scale_10).scaleY(scale_10);
+        } else if (postion == 3) {
+            ViewCompat.animate(textView1).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView2).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView3).scaleX(scale_10).scaleY(scale_10);
+            ViewCompat.animate(textView4).scaleX(scale_12).scaleY(scale_12);
+        }
+    }
+
+    public static int IMAGE_MAX_SIZE = 1024;
+
+    public static void writeSDFile(String fileName, String write_str) throws IOException {
+        File file = new File(fileName);
+        FileOutputStream fos = new FileOutputStream(file);
+        byte[] bytes = write_str.getBytes();
+        fos.write(bytes);
+        fos.close();
     }
 
 
