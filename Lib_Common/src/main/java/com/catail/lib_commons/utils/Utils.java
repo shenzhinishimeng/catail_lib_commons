@@ -66,7 +66,7 @@ public class Utils {
     /**
      * 检查当前网络是否可用
      */
-    public static boolean isNetworkAvailable(BaseActivity activity) {
+    public static boolean isNetworkAvailable(AppCompatActivity activity) {
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
         ConnectivityManager connectivityManager = (ConnectivityManager) activity
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
