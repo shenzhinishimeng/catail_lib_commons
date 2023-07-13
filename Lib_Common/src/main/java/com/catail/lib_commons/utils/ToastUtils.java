@@ -24,4 +24,11 @@ public class ToastUtils {
 	public static void toastNoDataContext(Context context){
 		Toast.makeText(context, "NO DATA", Toast.LENGTH_SHORT).show();
 	}
+
+	/**
+	 * Context普通的toast
+	 */
+	public static void toastStrContext(Context context, String string){
+		Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
+	}
 }
