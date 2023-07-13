@@ -56,6 +56,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -826,5 +827,11 @@ public class Utils {
         fos.close();
     }
 
-
+    public static String getsTheYYMMSeveralMonthsBefore(int Xmonth) {
+        Calendar calendarInstance = Calendar.getInstance();
+        calendarInstance.add(Calendar.MONTH, Xmonth);
+        String cnDate = DateFormatUtils.DatetoCnDateYYMM(calendarInstance.getTime());
+        Logger.e("datetoCNStrNo1=" + cnDate);
+        return cnDate;
+    }
 }

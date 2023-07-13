@@ -1,6 +1,7 @@
 package com.catail.lib_commons.utils;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -578,5 +579,161 @@ public class DateFormatUtils {
 		long between_days = (time_b - time_a) / (1000 * 3600 * 24);//计算相差天数
 
 		return between_days;
+	}
+
+	public static String DatetoCnDateYYMM(Date date) {
+		String CnStr;
+		//将日期转换为字符串
+		if (date != null) {
+			SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM", Locale.CHINESE);
+			simpleDateFormat2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+			CnStr = simpleDateFormat2.format(date);
+		} else {
+			Log.e("NullExcepton", "时间为空");
+			return null;
+		}
+		return CnStr;
+	}
+
+	/**
+	 * 获取每个月的第一天和最后一天
+	 */
+	public static String getDayDate(String dateYYMM) throws Exception {
+		String year = dateYYMM.substring(0, 4);
+		String month = dateYYMM.substring(5);
+		Logger.e("dateYYMM" + dateYYMM);
+		Logger.e("year==" + year);
+		Logger.e("month==" + month);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String start_str = String.format("%s-%02d-01", year, Integer.parseInt(month));
+		String end_index = String.format("%s-%02d-01", year, Integer.parseInt(month) + 1);
+
+		long end_timestamp = sdf.parse(end_index).getTime();
+		end_timestamp -= 1000 * 60 * 60 * 24;
+
+		long thistimestamp = new Date().getTime();
+
+		String end_str = null;
+		if (end_timestamp > thistimestamp) {
+			end_str = sdf.format(new Date(thistimestamp));
+		} else {
+			end_str = sdf.format(new Date(end_timestamp));
+		}
+
+		return start_str + "|" + end_str;
+	}
+
+
+	public static String getsTheYYMMSeveralMonthsBefore(int Xmonth) {
+		Calendar calendarInstance = Calendar.getInstance();
+		calendarInstance.add(Calendar.MONTH, Xmonth);
+		String cnDate = DateFormatUtils.DatetoCnDateYYMM(calendarInstance.getTime());
+		Logger.e("datetoCNStrNo1=" + cnDate);
+		return cnDate;
+	}
+
+
+	public static String getCurrentYearMonth() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		String dateStr = sdf.format(calendar.getTime());
+		Date date = DateFormatUtils.CN2DateYYMM(dateStr);
+		return DateFormatUtils.DatetoCnDateYYMM(date);
+	}
+
+	public static Long dateDiff(String startTime, String endTime, String format) {
+		// 按照传入的格式生成一个simpledateformate对象
+		Logger.e("startTime=" + startTime);
+		Logger.e("endTime=" + endTime);
+		if (!TextUtils.isEmpty(startTime) && !TextUtils.isEmpty(endTime)) {
+			SimpleDateFormat sd = new SimpleDateFormat(format);
+			long nd = (1000 * 24 * 60 * 60); // 一天的毫秒数
+			long nh = (1000 * 60 * 60); // 一小时的毫秒数
+			long nm = (1000 * 60); // 一分钟的毫秒数
+			long ns = 1000;// 一秒钟的毫秒数
+			long diff;
+			long day = 0;
+			try {
+				// 获得两个时间的毫秒时间差异
+				diff = (sd.parse(endTime).getTime()
+						- sd.parse(startTime).getTime());
+				day = diff / nd;// 计算差多少天
+				long hour = diff % nd / nh;// 计算差多少小时
+				long min = diff % nd % nh / nm; // 计算差多少分钟
+				long sec = diff % nd % nh % nm / ns;// 计算差多少秒
+				// 输出结果
+				Logger.e(
+						"时间相差：" + day + "天" + hour + "小时" + min
+								+ "分钟" + sec + "秒。"
+				);
+
+				if (day >= 1) {
+					return day;
+				} else {
+					if (day == 0L) {
+						return 1L;
+					} else {
+						return 0L;
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return 0L;
+		} else {
+			return 0L;
+		}
+	}
+
+
+	/**
+	 * 月份相差六个月
+	 *
+	 * @return
+	 */
+	public static int TheMonthsDifferBySixMonths(
+			String startMonthStr, String endMonthStr
+	) {
+		try {
+
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM", Locale.ENGLISH);
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+
+			Date startMonthDate = simpleDateFormat.parse(startMonthStr);
+			Date endMonthDate = simpleDateFormat.parse(endMonthStr);
+
+			Calendar startDateCal = Calendar.getInstance();
+			Calendar endDateCal = Calendar.getInstance();
+			startDateCal.setTime(startMonthDate);
+			endDateCal.setTime(endMonthDate);
+
+			int startYear = startDateCal.get(Calendar.YEAR);
+			int endYear = endDateCal.get((Calendar.YEAR));
+			if (startYear == endYear) {
+				//计算同一年的时间, 开始年份 小于结束年份 返回负值,    否则返回正数
+				return endDateCal.get(Calendar.MONTH) - startDateCal.get(Calendar.MONTH) + 1;
+			} else {
+				if (endYear > startYear) {
+					Logger.e("endYear > startYear");
+					//2022.04  -   2023.01
+					//如果 结束年份 大于  开始年份 应该返回正数
+					int endMonth = 12 - (startDateCal.get(Calendar.MONTH) + 1);
+					int startMonth = endDateCal.get(Calendar.MONTH) + 1;
+					return Math.abs(endYear - startYear - 1) * 12 + startMonth + endMonth + 1;//加1  是为了加上当前月
+				} else if (endYear < startYear) {
+					Logger.e("endYear < startYear");
+					//如果 结束年份 小于  开始年份, 直接返回-1, 说明结束年份不能比开始年份大
+					//  2022.05   - 2022.04
+					return -1;
+				} else {
+					//如果  结束年份,开始年份, 一样大 则返回1
+					return 1;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+
 	}
 }
