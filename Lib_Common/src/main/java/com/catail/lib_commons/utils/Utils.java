@@ -40,6 +40,7 @@ import androidx.core.view.ViewCompat;
 import com.catail.lib_commons.CommonsApplication;
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.base.BaseActivity;
+import com.catail.lib_commons.utils.calendarselection.MonthDateView;
 import com.finddreams.languagelib.LanguageType;
 import com.finddreams.languagelib.MultiLanguageUtil;
 
@@ -54,12 +55,14 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -834,4 +837,206 @@ public class Utils {
         Logger.e("datetoCNStrNo1=" + cnDate);
         return cnDate;
     }
+
+
+    /**
+     * 获取每个月的第一天和最后一天
+     */
+    public static String getDayDate(String dateYYMM) throws Exception {
+        String year = dateYYMM.substring(0, 4);
+        String month = dateYYMM.substring(5);
+        Logger.e("dateYYMM" + dateYYMM);
+        Logger.e("year==" + year);
+        Logger.e("month==" + month);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String start_str = String.format("%s-%02d-01", year, Integer.parseInt(month));
+        String end_index = String.format("%s-%02d-01", year, Integer.parseInt(month) + 1);
+
+        long end_timestamp = sdf.parse(end_index).getTime();
+        end_timestamp -= 1000 * 60 * 60 * 24;
+
+        long thistimestamp = new Date().getTime();
+
+        String end_str = null;
+        if (end_timestamp > thistimestamp) {
+            end_str = sdf.format(new Date(thistimestamp));
+        } else {
+            end_str = sdf.format(new Date(end_timestamp));
+        }
+
+        return start_str + "|" + end_str;
+    }
+
+    /**
+     * 判断两个月是不是相同
+     *
+     * @param startDateStr
+     * @param endDateStr
+     * @return
+     */
+    public static boolean judgeMonthSame(String startDateStr, String endDateStr) {
+        String startMonth = startDateStr.substring(0, 7);
+        String endMonth = endDateStr.substring(0, 7);
+//        Logger.e("startMonth=" + startMonth);
+//        Logger.e("endMonth=" + endMonth);
+        return startMonth.equals(endMonth);
+
+    }
+
+
+    public static int getMonthDays(String startDateStr, String endDateStr) {
+        String startMonth = startDateStr.substring(5, 7);
+        String endMonth = endDateStr.substring(5, 7);
+//        Logger.e("startMonth=" + startMonth);
+//        Logger.e("endMonth=" + endMonth);
+
+        //如果是同一个月, 就按正常的
+        if (startMonth.equals(endMonth)) {
+            String yearMonthStr = startDateStr.substring(0, 7);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+            Calendar calendar = Calendar.getInstance();
+            try {
+                calendar.setTime(sdf.parse(yearMonthStr));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        } else {
+            //如果不是同一个月,就按30天算,
+            return 30;
+        }
+    }
+
+    public static long DaysOfTwoMonth(String startDateStr, String endDateStr) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = simpleDateFormat.parse(startDateStr);
+            endDate = simpleDateFormat.parse(endDateStr);
+        } catch (ParseException e) {
+//				e.printStackTrace();
+        }
+
+        long diff = endDate.getTime() - startDate.getTime();
+        long seconds = diff / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = (hours / 24) + 1;
+        Logger.e("days", "" + days);
+        return days;
+    }
+
+    public static void initCalendarDefaultDate(int dateFlag, String startDateDay, String endDateDay) {
+        //区分一下开始 时间和结束时间
+        if (dateFlag == 0) {
+            if (!startDateDay.isEmpty()) {
+//                Logger.e("startDateDay!=空", "startDateDay!=空");
+                String[] split = startDateDay.split("\\-");
+                int year = Integer.parseInt(split[0]);
+                int month;
+                if (split[1].startsWith("0")) {
+                    month = Integer.parseInt(split[1]) - 1;
+                } else {
+                    month = Integer.parseInt(split[1]) - 1;
+                }
+
+                int day;
+                if (split[2].startsWith("0")) {
+                    day = Integer.parseInt(split[2]);
+                } else {
+                    day = Integer.parseInt(split[2]);
+                }
+                MonthDateView.setCurrentDay(year, month, day);
+            } else {
+//                Logger.e("startDateDay==空", "startDateDay==空");
+            }
+        } else {
+            if (!endDateDay.isEmpty()) {
+//                Logger.e("endDateDay!=空", "endDateDay!=空");
+                String[] split = endDateDay.split("\\-");
+                int year = Integer.parseInt(split[0]);
+                int month;
+                if (split[1].startsWith("0")) {
+                    month = Integer.parseInt(split[1]) - 1;
+                } else {
+                    month = Integer.parseInt(split[1]) - 1;
+                }
+
+                int day;
+                if (split[2].startsWith("0")) {
+                    day = Integer.parseInt(split[2]);
+                } else {
+                    day = Integer.parseInt(split[2]);
+                }
+                MonthDateView.setCurrentDay(year, month, day);
+            } else {
+//                Logger.e("endDateDay==空", "endDateDay==空");
+            }
+        }
+    }
+
+    public static String getCurrentYearMonth() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        String dateStr = sdf.format(calendar.getTime());
+        Date date = DateFormatUtils.CN2DateYYMM(dateStr);
+        return DateFormatUtils.DatetoCnDateYYMM(date);
+    }
+
+
+    /**
+     * 月份相差六个月
+     *
+     * @return
+     */
+    public static int TheMonthsDifferBySixMonths(
+            String startMonthStr, String endMonthStr
+    ) {
+        try {
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM", Locale.ENGLISH);
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+
+            Date startMonthDate = simpleDateFormat.parse(startMonthStr);
+            Date endMonthDate = simpleDateFormat.parse(endMonthStr);
+
+            Calendar startDateCal = Calendar.getInstance();
+            Calendar endDateCal = Calendar.getInstance();
+            startDateCal.setTime(startMonthDate);
+            endDateCal.setTime(endMonthDate);
+
+            int startYear = startDateCal.get(Calendar.YEAR);
+            int endYear = endDateCal.get((Calendar.YEAR));
+            if (startYear == endYear) {
+                //计算同一年的时间, 开始年份 小于结束年份 返回负值,    否则返回正数
+                return endDateCal.get(Calendar.MONTH) - startDateCal.get(Calendar.MONTH) + 1;
+            } else {
+                if (endYear > startYear) {
+                    Logger.e("endYear > startYear");
+                    //2022.04  -   2023.01
+                    //如果 结束年份 大于  开始年份 应该返回正数
+                    int endMonth = 12 - (startDateCal.get(Calendar.MONTH) + 1);
+                    int startMonth = endDateCal.get(Calendar.MONTH) + 1;
+                    return Math.abs(endYear - startYear - 1) * 12 + startMonth + endMonth + 1;//加1  是为了加上当前月
+                } else if (endYear < startYear) {
+                    Logger.e("endYear < startYear");
+                    //如果 结束年份 小于  开始年份, 直接返回-1, 说明结束年份不能比开始年份大
+                    //  2022.05   - 2022.04
+                    return -1;
+                } else {
+                    //如果  结束年份,开始年份, 一样大 则返回1
+                    return 1;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
 }
