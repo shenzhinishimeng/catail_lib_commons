@@ -1,11 +1,19 @@
 package com.catail.lib_commons.utils;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
+
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -736,4 +744,113 @@ public class DateFormatUtils {
 		}
 
 	}
+
+	public static String getYYMMDD(String time) {
+		Date date = DateFormatUtils.En2Date(time);
+		String CnStr;
+		//将日期转换为字符串
+		if (date != null) {
+			SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+			simpleDateFormat2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+			CnStr = simpleDateFormat2.format(date);
+		} else {
+			Log.e("NullExcepton", "时间为空");
+			return null;
+		}
+		return CnStr;
+
+	}
+
+
+	public static String getHHMMSS(String time) {
+		Date date = DateFormatUtils.En2Date(time);
+		String CnStr;
+		//将日期转换为字符串
+		if (date != null) {
+			SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+			simpleDateFormat2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+			CnStr = simpleDateFormat2.format(date);
+		} else {
+			Log.e("NullExcepton", "时间为空");
+			return null;
+		}
+
+		return CnStr;
+
+	}
+
+
+	/**
+	 * 传入Data类型日期，返回字符串类型时间（ISO8601标准时间）
+	 *
+	 */
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	public static String getISO8601Timestamp(String cnDateStr) {
+		String resultStr = "";
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime dt1 = LocalDateTime.parse(cnDateStr, formatter);
+			ZoneOffset offset = ZoneOffset.of("+08:00");
+			OffsetDateTime date = OffsetDateTime.of(dt1, offset);
+			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+			resultStr = date.format(formatter2);
+			Logger.e("cnDateStr==" + cnDateStr);
+			return resultStr;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultStr;
+		}
+	}
+
+
+	public static String Date2CNStrYYMM(Date date) {
+		//将日期转换为字符串
+		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM");
+		simpleDateFormat2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+		String format = simpleDateFormat2.format(date);
+
+		return format;
+
+	}
+
+	/**
+	 * 返回double 值
+	 *
+	 * @return
+	 */
+	public static String doubleValueStr(float value) {
+		DecimalFormat df = new DecimalFormat("#.00");
+		return df.format(value);
+	}
+
+	/**
+	 * @return 0 等于 1 大于 2小于
+	 */
+	public static int comparePercent(String value1, String value2) {
+		String coverdata1 = value1.replace("%", "");
+		String checkdata2 = value2.replace("%", "");
+		Logger.e("------------------------------");
+		Logger.e("coverdata1====" + coverdata1);
+		Logger.e("checkdata2====" + checkdata2);
+		Logger.e("------------------------------");
+		if (!coverdata1.equals("∞") && !checkdata2.equals("∞")) {
+			double data1 = Double.parseDouble(coverdata1);
+			double data2 = Double.parseDouble(checkdata2);
+			if (data1 == data2) {
+				return 0;
+			} else {
+				if (data1 > data2) {
+					return 1;
+				} else {
+					return 2;
+				}
+			}
+		} else {
+			return 0;
+		}
+
+	}
+
+
+
 }
