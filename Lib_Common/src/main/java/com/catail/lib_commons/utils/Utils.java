@@ -55,6 +55,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1039,4 +1040,51 @@ public class Utils {
 
     }
 
+
+    /**
+     * 返回double 值
+     *
+     * @return
+     */
+    public static String doubleValueStr(float value) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(value);
+    }
+
+    /**
+     * @return 0 等于 1 大于 2小于
+     */
+    public static int comparePercent(String value1, String value2) {
+        String coverdata1 = value1.replace("%", "");
+        String checkdata2 = value2.replace("%", "");
+        Logger.e("------------------------------");
+        Logger.e("coverdata1====" + coverdata1);
+        Logger.e("checkdata2====" + checkdata2);
+        Logger.e("------------------------------");
+        if (!coverdata1.equals("∞") && !checkdata2.equals("∞")) {
+            double data1 = Double.parseDouble(coverdata1);
+            double data2 = Double.parseDouble(checkdata2);
+            if (data1 == data2) {
+                return 0;
+            } else {
+                if (data1 > data2) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            }
+        } else {
+            return 0;
+        }
+
+    }
+
+
+    public static String getCurrentDateNOTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("yyyy-MM-dd");// a为am/pm的标记
+        Date date = new Date();// 获取当前时间
+        String dateStr = DateFormatUtils.DatetoCNDate(date);
+        return dateStr.substring(0, 10);
+    }
 }
