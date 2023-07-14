@@ -1151,4 +1151,24 @@ public class Utils {
 
         return dateResult;
     }
+
+
+    public static boolean judgeCurrentDate(String beforeDate,String afterDate) {
+
+        Date currentDate = DateFormatUtils.CN2DateNo(beforeDate);
+        Date selectDate = DateFormatUtils.CN2DateNo(afterDate);
+
+        Logger.e("------------------------------");
+        Logger.e("currentDate====" + currentDate);
+        Logger.e("selectDate====" + selectDate);
+        Logger.e("------------------------------");
+
+        boolean dateResult = currentDate.before(selectDate);
+        Logger.e("------------------------------");
+        Logger.e("dateResult====" + dateResult);
+        Logger.e("------------------------------");
+
+        return dateResult;
+    }
+
 }
