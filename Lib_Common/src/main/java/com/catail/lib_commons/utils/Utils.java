@@ -1087,4 +1087,43 @@ public class Utils {
         String dateStr = DateFormatUtils.DatetoCNDate(date);
         return dateStr.substring(0, 10);
     }
+
+    /**
+     * 当前时间和选择时间比较.
+     */
+    public static boolean judgeSelectDate(String selectionDay) {
+        //判断 当前时间和 结束时间比较
+        String currentDateTime = Utils.getCurrentDate();
+        Logger.e("------------------------------");
+        Logger.e("currentDateTime====" + currentDateTime);
+        Logger.e("------------------------------");
+        //先判断是昨天还是今天的 考勤
+        Date currentDate = DateFormatUtils.CN2DateNo(currentDateTime);
+        Date selectDate = DateFormatUtils.CN2DateNo(selectionDay);
+
+        Logger.e("------------------------------");
+        Logger.e("currentDate====" + currentDate);
+        Logger.e("selectDate====" + selectDate);
+        Logger.e("------------------------------");
+
+        boolean dateResult = currentDate.before(selectDate);
+        Logger.e("------------------------------");
+        Logger.e("dateResult====" + dateResult);
+        Logger.e("------------------------------");
+
+        return dateResult;
+    }
+
+
+    public static void setLinearLayoutViewWidthAndHeight(AppCompatActivity activity,
+                                                         View view){
+
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+//        Logger.e("(int) (width * size)=="+((int) (width * size))+"");
+
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, (int) (height * 0.5));
+        view.setLayoutParams(layoutParams);
+    }
 }
