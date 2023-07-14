@@ -1126,4 +1126,29 @@ public class Utils {
                 new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, (int) (height * 0.5));
         view.setLayoutParams(layoutParams);
     }
+
+
+    public static boolean judgeCurrentDate(String selectionDay) {
+
+        //判断 当前时间和 结束时间比较
+        String currentDateTime = Utils.getCurrentDate();
+        Logger.e("------------------------------");
+        Logger.e("currentDateTime====" + currentDateTime);
+        Logger.e("------------------------------");
+        //先判断是昨天还是今天的 考勤
+        Date currentDate = DateFormatUtils.CN2DateNo(currentDateTime);
+        Date selectDate = DateFormatUtils.CN2DateNo(selectionDay);
+
+        Logger.e("------------------------------");
+        Logger.e("currentDate====" + currentDate);
+        Logger.e("selectDate====" + selectDate);
+        Logger.e("------------------------------");
+
+        boolean dateResult = selectDate.before(currentDate);
+        Logger.e("------------------------------");
+        Logger.e("dateResult====" + dateResult);
+        Logger.e("------------------------------");
+
+        return dateResult;
+    }
 }

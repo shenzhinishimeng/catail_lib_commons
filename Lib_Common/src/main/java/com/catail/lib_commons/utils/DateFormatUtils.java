@@ -914,6 +914,13 @@ public class DateFormatUtils {
         return dateString;
     }
 
+    public static String DateformatHHmm(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        String dateString = formatter.format(date);
+        return dateString;
+    }
+
     /**
      * 中文字符串转日期
      */
@@ -967,4 +974,6 @@ public class DateFormatUtils {
             return false;
         }
     }
+
+
 }
