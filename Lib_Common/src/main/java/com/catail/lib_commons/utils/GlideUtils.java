@@ -359,6 +359,9 @@ public class GlideUtils {
 
     /*====================================== 加载圆形图片 ==========================================*/
     public static void loadCirclePic(Object obj, ImageView iv) {
+        if (obj.toString().length() < 5) {
+            return;
+        }
 //        loadCirclePic(obj, iv,R.color.pic_default_bg);
         loadCirclePic(obj, iv, R.mipmap.empty_head_picture);
     }
