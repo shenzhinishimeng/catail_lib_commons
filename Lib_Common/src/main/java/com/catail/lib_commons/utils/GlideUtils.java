@@ -43,7 +43,7 @@ public class GlideUtils {
             return;
         }
         if (TextUtils.isEmpty(url)
-                && url.length() < 5) {
+                || url.length() < 5) {
             return;
         }
         Context viewContext = imageView.getContext();
@@ -122,7 +122,7 @@ public class GlideUtils {
             return;
         }
         if (TextUtils.isEmpty(url)
-                && url.length() < 5) {
+                || url.length() < 5) {
             return;
         }
         Context viewContext = imageView.getContext();
@@ -248,7 +248,7 @@ public class GlideUtils {
             return;
         }
         if (TextUtils.isEmpty(url)
-                && url.length() < 5) {
+                || url.length() < 5) {
             return;
         }
         Context viewContext = imageView.getContext();
