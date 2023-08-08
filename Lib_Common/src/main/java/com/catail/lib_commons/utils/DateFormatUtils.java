@@ -975,5 +975,34 @@ public class DateFormatUtils {
         }
     }
 
+    /**
+     * 日期转中文时间
+     *
+     * @param date
+     * @return
+     */
+    public static String Date2CNStrNoDay(Date date) {
+        //将日期转换为字符串
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy MM");
+        simpleDateFormat2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        String format = simpleDateFormat2.format(date);
+        return format;
+    }
 
+    /**
+     * 转中文日期
+     */
+    public static String  DatetoCNStrNoDay(Date date){
+        String CnStr;
+        //将日期转换为字符串
+        if(date!=null){
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM");
+            simpleDateFormat2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+            CnStr = simpleDateFormat2.format(date);
+        }else{
+            Log.e("NullExcepton", "时间为空");
+            return null;
+        }
+        return CnStr;
+    }
 }

@@ -1017,6 +1017,15 @@ public class Utils {
         return DateFormatUtils.DatetoCnDateYYMM(date);
     }
 
+    public static String getCurrentDateAndTimeNoss() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateStr = sdf.format(calendar.getTime());
+        Date date = DateFormatUtils.CN2DateNoSS(dateStr);
+        String endateStr = DateFormatUtils.DatetoEnDateNoSS(date);
+        return endateStr;
+    }
+
 
     /**
      * 月份相差六个月
