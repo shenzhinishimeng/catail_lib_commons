@@ -869,11 +869,40 @@ public class Utils {
     }
 
     /**
+     * 获取每个月的第一天和最后一天
+     * 如果不是当月的话,减一天
+     */
+    public static String getDayDate(String dateYYMM, boolean isCurrentDay) throws Exception {
+        String year = dateYYMM.substring(0, 4);
+        String month = dateYYMM.substring(5);
+        Logger.e("dateYYMM==" + dateYYMM);
+        Logger.e("year==" + year);
+        Logger.e("month==" + month);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String start_str = String.format("%s-%02d-01", year, Integer.parseInt(month));
+        String end_index = String.format("%s-%02d-01", year, Integer.parseInt(month) + 1);
+
+        long end_timestamp = sdf.parse(end_index).getTime();
+        end_timestamp -= 1000 * 60 * 60 * 24;
+
+        long thistimestamp = new Date().getTime();
+
+        if (isCurrentDay) {
+            thistimestamp -= 1000 * 60 * 60 * 24;
+        }
+
+        String end_str = null;
+        if (end_timestamp > thistimestamp) {
+            end_str = sdf.format(new Date(thistimestamp));
+        } else {
+            end_str = sdf.format(new Date(end_timestamp));
+        }
+
+        return start_str + "|" + end_str;
+    }
+
+    /**
      * 判断两个月是不是相同
-     *
-     * @param startDateStr
-     * @param endDateStr
-     * @return
      */
     public static boolean judgeMonthSame(String startDateStr, String endDateStr) {
         String startMonth = startDateStr.substring(0, 7);
