@@ -56,7 +56,8 @@ dependencies {
     api 'com.zhy:okhttputils:2.6.2'//okhttputils
     api 'com.google.code.gson:gson:2.8.6'
 
-    api 'com.blankj:utilcode:1.20.3'  //各种工具类
+//    api 'com.blankj:utilcode:1.20.3'  //各种工具类
+    api 'com.blankj:utilcode:1.31.1'  //各种工具类
     api 'me.jessyan:autosize:1.2.1'//屏幕适配
     api 'com.gyf.immersionbar:immersionbar:3.0.0'//沉浸式状态栏插件
 
