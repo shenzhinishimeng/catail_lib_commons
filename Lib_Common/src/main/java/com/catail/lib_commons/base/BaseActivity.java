@@ -59,12 +59,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (loadingDialog == null) {
             loadingDialog = Utils.createLoadingDialog(BaseActivity.this, msg);
         }
-        loadingDialog.show();
+        if (loadingDialog != null) {
+            loadingDialog.show();
+        }
     }
 
     @Override
     protected void onDestroy() {
-        if(loadingDialog != null) {
+        if (loadingDialog != null) {
             loadingDialog.dismiss();
         }
         super.onDestroy();
