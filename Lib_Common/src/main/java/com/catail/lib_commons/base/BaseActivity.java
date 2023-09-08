@@ -62,6 +62,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         loadingDialog.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        if(loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
+        super.onDestroy();
+    }
+
     /**
      * 隐藏progressDialog
      */
