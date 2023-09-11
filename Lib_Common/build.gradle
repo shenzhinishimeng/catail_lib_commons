@@ -73,7 +73,7 @@ dependencies {
     api "com.github.bumptech.glide:okhttp3-integration:4.10.0"
 
     api 'com.github.shenzhinishimeng:catail_lib_languages:1.0.1'//多语言
-    api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.0'//图片选择
+    api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.1'//图片选择
     api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.0'//图片编辑
 
     api 'com.contrarywind:Android-PickerView:4.1.2'    //时间选择插件
