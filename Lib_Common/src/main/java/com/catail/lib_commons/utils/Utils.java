@@ -3,6 +3,7 @@ package com.catail.lib_commons.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -32,6 +33,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -616,7 +618,7 @@ public class Utils {
     }
 
     public static boolean CheckStartDateAndEndDate(
-            BaseActivity activity,
+            Context activity,
             String startDate, String endDate) {
         //1. 起止时间必须得选择, 2. 不能跨年.
         Logger.e("------------------------------");
@@ -629,11 +631,11 @@ public class Utils {
         } else {
             if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate)) {
                 if (TextUtils.isEmpty(startDate)) {
-                    activity.showToast(activity.getResources().getString(com.catail.lib_commons.R.string.please_select_a_start_date));
+                    ToastUtils.toastStrContext(activity,activity.getResources().getString(com.catail.lib_commons.R.string.please_select_a_start_date));
                 }
 
                 if (TextUtils.isEmpty(endDate)) {
-                    activity.showToast(activity.getResources().getString(com.catail.lib_commons.R.string.please_select_an_end_date));
+                    ToastUtils.toastStrContext(activity,activity.getResources().getString(com.catail.lib_commons.R.string.please_select_an_end_date));
                 }
                 return false;
             } else {
@@ -641,7 +643,7 @@ public class Utils {
                 String endDateYY = endDate.substring(0, 4);
 
                 if (!startDateYY.equals(endDateYY)) {
-                    activity.showToast(activity.getResources().getString(com.catail.lib_commons.R.string.please_select_the_same_year));
+                    ToastUtils.toastStrContext(activity,activity.getResources().getString(com.catail.lib_commons.R.string.please_select_the_same_year));
                     return false;
                 } else {
                     return true;
@@ -650,6 +652,8 @@ public class Utils {
         }
 
     }
+
+
 
     public static double Keep1Decimal(double num1) {
         BigDecimal b = new BigDecimal(num1);
