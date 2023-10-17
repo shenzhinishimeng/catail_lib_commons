@@ -136,25 +136,26 @@ public class Utils {
                     return 1;
                 }
             } else {
-                Resources res = CommonsApplication.getContext().getResources();
-                Configuration conf = res.getConfiguration();
-                Locale locale = conf.locale;
-//                Logger.e("local", locale.getLanguage());
-//                Logger.e("country", locale.getCountry());
-                String languageAndCountry = locale.getLanguage() + locale.getCountry();
-                if (languageAndCountry.equals("zh-")) {
-                    return 0;
-                } else if (languageAndCountry.equals("zh-CN")) {
-                    return 0;
-                } else if (languageAndCountry.equals("en-")) {
-                    return 1;
-                } else if (languageAndCountry.equals("en-US")) {
-                    return 1;
-                } else if (languageAndCountry.equals("en-SG")) {
-                    return 1;
-                } else {
-                    return 1;
-                }
+                return languageType;
+//                Resources res = CommonsApplication.getContext().getResources();
+//                Configuration conf = res.getConfiguration();
+//                Locale locale = conf.locale;
+////                Logger.e("local", locale.getLanguage());
+////                Logger.e("country", locale.getCountry());
+//                String languageAndCountry = locale.getLanguage() + locale.getCountry();
+//                if (languageAndCountry.equals("zh-")) {
+//                    return 0;
+//                } else if (languageAndCountry.equals("zh-CN")) {
+//                    return 0;
+//                } else if (languageAndCountry.equals("en-")) {
+//                    return 1;
+//                } else if (languageAndCountry.equals("en-US")) {
+//                    return 1;
+//                } else if (languageAndCountry.equals("en-SG")) {
+//                    return 1;
+//                } else {
+//                    return 1;
+//                }
             }
         } else {
             return 1;
