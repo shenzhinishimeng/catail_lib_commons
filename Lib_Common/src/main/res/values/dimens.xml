@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="status_bar_height">0dp</dimen>
+
     <!-- 字体 -->
     <dimen name="textsize_8">8sp</dimen>
     <dimen name="textsize_9">9sp</dimen>
@@ -46,6 +48,8 @@
 
     <!-- 间距 -->
     <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_12">12dp</dimen>
     <dimen name="padding_14">14dp</dimen>
@@ -62,6 +66,7 @@
     <dimen name="padding_55">55dp</dimen>
 
 
+    <dimen name="margin_4">4dp</dimen>
     <dimen name="margin_5">5dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_10">10dp</dimen>

@@ -632,11 +632,11 @@ public class Utils {
         } else {
             if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate)) {
                 if (TextUtils.isEmpty(startDate)) {
-                    ToastUtils.toastStrContext(activity,activity.getResources().getString(com.catail.lib_commons.R.string.please_select_a_start_date));
+                    ToastUtils.toastStrContext(activity,activity.getResources().getString(R.string.please_select_a_start_date));
                 }
 
                 if (TextUtils.isEmpty(endDate)) {
-                    ToastUtils.toastStrContext(activity,activity.getResources().getString(com.catail.lib_commons.R.string.please_select_an_end_date));
+                    ToastUtils.toastStrContext(activity,activity.getResources().getString(R.string.please_select_an_end_date));
                 }
                 return false;
             } else {
@@ -644,7 +644,7 @@ public class Utils {
                 String endDateYY = endDate.substring(0, 4);
 
                 if (!startDateYY.equals(endDateYY)) {
-                    ToastUtils.toastStrContext(activity,activity.getResources().getString(com.catail.lib_commons.R.string.please_select_the_same_year));
+                    ToastUtils.toastStrContext(activity,activity.getResources().getString(R.string.please_select_the_same_year));
                     return false;
                 } else {
                     return true;

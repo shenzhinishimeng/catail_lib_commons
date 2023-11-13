@@ -3,8 +3,16 @@ package com.catail.lib_commons;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
+import android.os.StrictMode;
+import android.os.Vibrator;
 
+import com.blankj.utilcode.util.Utils;
+import com.catail.lib_commons.utils.Preference;
 import com.finddreams.languagelib.MultiLanguageUtil;
+import com.hjq.toast.Toaster;
+import com.hjq.toast.style.WhiteToastStyle;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -15,33 +23,42 @@ import okhttp3.OkHttpClient;
 
 public class CommonsApplication extends Application {
     public static List<Activity> activityList;
-    public static Context context;
-    public static List<Activity> picActivityList;  //这个集合是单独记录照片从本地相册取出之后,要关闭的界面
-    public static ArrayList<String> picArrayList;  //这个集合是记录选取的图片的张数
 
-
+    public static Context mContext;
+    //    public LocationService locationService;
+    public Vibrator mVibrator;
     @Override
     public void onCreate() {
         super.onCreate();
+        activityList = new ArrayList<>();
+        mContext = getApplicationContext();
+        Preference.createSysparamSp(getApplicationContext());
 
-//        init();//初始化基本数据
-//
-//        initOkHttp();
-//        Utils.init(this);//初始化各种工具类
+        initOkHttp();//初始化okhttputils
+
+//        ZXingLibrary.initDisplayOpinion(this);//初始化二维码扫描
+//        initX5WebView();//x5webview
+
+        Utils.init(this);//初始化各种工具类
+
+//        initBDLocation();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+
+        }
         initMultiLanguage();//多语言切换
+
+        // 初始化吐司工具类
+        Toaster.init(this, new WhiteToastStyle());
+
+
     }
 
 
     public static Context getContext() {
-        return context;
-    }
-
-
-    private void init() {
-        context = getApplicationContext();
-        activityList = new ArrayList<>();
-        picActivityList = new ArrayList<>();
-        picArrayList = new ArrayList<>();
+        return mContext;
     }
 
     private void initOkHttp() {
@@ -61,6 +78,13 @@ public class CommonsApplication extends Application {
         OkHttpUtils.initClient(okHttpClient);
 
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+
     private void initMultiLanguage() {
         MultiLanguageUtil.init(this);
     }

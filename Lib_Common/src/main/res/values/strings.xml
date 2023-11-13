@@ -1,14 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lib_Commons</string>
     <string name="add_success">Success</string>
-    <string name="no_data" translatable="false">No DATA</string>
     <string name="please_select_a_start_date">Please select a start date</string>
     <string name="please_select_the_same_year">Please select the same year</string>
     <string name="please_select_an_end_date">Please select an end date</string>
 
-    <!--权限 -->
-    <string name="permission_rationale_message">You have rejected us to apply for authorization, please agree to authorization, otherwise the function can\'t be used normally!</string>
-    <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
     <!--多语言-->
     <string name="setting_language_auto">跟随系统</string>
     <string name="setting_language_english">English</string>
