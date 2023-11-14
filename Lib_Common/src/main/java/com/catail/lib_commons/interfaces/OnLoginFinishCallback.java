@@ -9,7 +9,4 @@ import com.catail.lib_commons.bean.QRCodeResultBean;
 public interface OnLoginFinishCallback {
 
     void onLoginFinish(LoginActivity loginActivity);
-
-
-    void startTaskDetailsActivity(AppCompatActivity activity, String open_flag, QRCodeResultBean qrCodeResultBean);
 }
