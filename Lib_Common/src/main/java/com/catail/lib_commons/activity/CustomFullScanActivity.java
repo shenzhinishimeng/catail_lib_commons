@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.bean.QRCodeResultBean;
 import com.catail.lib_commons.interfaces.AccountManager;
+import com.catail.lib_commons.interfaces.StartTakDetailsActivityManager;
 import com.catail.lib_commons.utils.Base64;
 import com.catail.lib_commons.utils.ConstantValue;
 import com.catail.lib_commons.utils.GsonUtil;
@@ -136,8 +137,10 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
 //                    intent.putExtras(bundle);
 //                    startActivity(intent);
 //                    CustomFullScanActivity.this.finish();
-                    AccountManager.getInstance().onLoginFinishCallback
-                            .startTaskDetailsActivity(CustomFullScanActivity.this, "qrcode", qrCodeResultBean);
+                    StartTakDetailsActivityManager.getInstance().startTaskDetailsActivityCallback
+                            .startTaskDetailsActivity(
+                                    CustomFullScanActivity.this,
+                                    "qrcode", qrCodeResultBean);
                 } else if (flagStr.equals("task_apply")) {
                     Logger.e("qrCodeResultBean.toString()==", qrCodeResultBean.toString());
                     Intent intent = new Intent();
