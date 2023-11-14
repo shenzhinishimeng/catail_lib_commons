@@ -12,6 +12,9 @@ public class QRCodeResultBean implements Serializable {
     private String model_level;
     private String level;
 
+
+
+
     public String getModel_id() {
         return model_id;
     }

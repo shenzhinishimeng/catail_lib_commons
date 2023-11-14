@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.bean.QRCodeResultBean;
+import com.catail.lib_commons.interfaces.AccountManager;
 import com.catail.lib_commons.utils.Base64;
 import com.catail.lib_commons.utils.ConstantValue;
 import com.catail.lib_commons.utils.GsonUtil;
@@ -100,7 +101,7 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
         } else if (flagStr.equals("task_apply")) {
             String projectId = getIntent().getStringExtra("projectId");
             QRCodeDealMethod(base64Str, flagStr, projectId);
-        }else if(flagStr.equals("defect")){
+        } else if (flagStr.equals("defect")) {
             String projectId = getIntent().getStringExtra("projectId");
             QRCodeDealMethod(base64Str, flagStr, projectId);
         }
@@ -114,9 +115,9 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
             try {
                 QRCodeResultBean qrCodeResultBean = GsonUtil.GsonToBean(qrCodeStr,
                         QRCodeResultBean.class);
-                Logger.e("qrCodeStr="+qrCodeStr);
+                Logger.e("qrCodeStr=" + qrCodeStr);
                 Logger.e("projectId==", "projectId==" + projectId + "AAA");
-                Logger.e("qrCodeResultBean=="+qrCodeResultBean.toString());
+                Logger.e("qrCodeResultBean==" + qrCodeResultBean.toString());
                 if (!projectId.equals(qrCodeResultBean.getProgram_id())) {
                     Toast.makeText(CustomFullScanActivity.this, R.string.task_qr_project_not_same,
                                     Toast.LENGTH_SHORT)
@@ -127,13 +128,16 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
 
                 if (flagStr.equals("task_home")) {
                     //TODO 打开task界面
-//                    Intent intent = new Intent(CustomFullScanActivity.this, TaskDetailsListActivity.class);
+//                    Intent intent = new Intent(CustomFullScanActivity.this,
+//                            TaskDetailsListActivity.class);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("open_flag", "qrcode");
 //                    bundle.putSerializable("qrcodebean", qrCodeResultBean);
 //                    intent.putExtras(bundle);
 //                    startActivity(intent);
 //                    CustomFullScanActivity.this.finish();
+                    AccountManager.getInstance().onLoginFinishCallback
+                            .startTaskDetailsActivity(CustomFullScanActivity.this, "qrcode", qrCodeResultBean);
                 } else if (flagStr.equals("task_apply")) {
                     Logger.e("qrCodeResultBean.toString()==", qrCodeResultBean.toString());
                     Intent intent = new Intent();
@@ -160,7 +164,7 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
 //                        handler.restartPreviewAndDecode();
 //                    }
 
-                }else if(flagStr.equals("defect")){
+                } else if (flagStr.equals("defect")) {
                     Logger.e("qrCodeResultBean.toString()==", qrCodeResultBean.toString());
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
@@ -184,9 +188,6 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
             CustomFullScanActivity.this.finish();
         }
     }
-
-
-
 
 
 //    @Override
