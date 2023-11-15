@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
+import com.catail.lib_commons.CommonsApplication;
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.utils.Logger;
 import com.catail.lib_commons.utils.Utils;
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Logger.e("当前Activity名称==", TAG);
         mContext = this;
         mContentResolver = getContentResolver();
+        CommonsApplication.activityList.add(this);
         initImmersionBar(R.color.white_background_FFFFFF);//初始化沉浸式状态栏
         initView();
         initData();
@@ -70,6 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             loadingDialog.dismiss();
         }
         super.onDestroy();
+        CommonsApplication.activityList.remove(this);
     }
 
     /**
