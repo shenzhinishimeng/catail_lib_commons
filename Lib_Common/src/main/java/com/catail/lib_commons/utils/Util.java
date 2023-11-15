@@ -2,7 +2,6 @@ package com.catail.lib_commons.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.catail.lib_commons.CommonsApplication;
 import com.catail.lib_commons.R;
-import com.catail.lib_commons.activity.LoginActivity;
 import com.catail.lib_commons.bean.LoginBean;
 import com.catail.lib_commons.bean.ProjectAndPermissionBean;
+import com.catail.lib_commons.interfaces.AccountManager;
 
 public class Util {
     /**
@@ -61,8 +60,11 @@ public class Util {
                 CommonsApplication.activityList.get(i).finish();
             }
             /* 回退到登录界面 */
-            Intent intent = new Intent(activity, LoginActivity.class);
-            activity.startActivity(intent);
+//            Intent intent = new Intent(activity, LoginActivity.class);
+//            activity.startActivity(intent);
+
+            AccountManager.getInstance().onLoginFinishCallback.onLoginFinish(activity);
+
         });
         TextView loginAgainText = window.findViewById(R.id.login_again_text);
         loginAgainText.setOnClickListener(view12 -> {
@@ -84,8 +86,9 @@ public class Util {
                 CommonsApplication.activityList.get(i).finish();
             }
             /* 回退到登录界面 */
-            Intent intent = new Intent(activity, LoginActivity.class);
-            activity.startActivity(intent);
+//            Intent intent = new Intent(activity, LoginActivity.class);
+//            activity.startActivity(intent);
+            AccountManager.getInstance().onLoginFinishCallback.onLoginFinish(activity);
         });
         Utils.setAlertDialogConner(alertDialog);
         Utils.setAlertDialogSize(activity, alertDialog, 0);

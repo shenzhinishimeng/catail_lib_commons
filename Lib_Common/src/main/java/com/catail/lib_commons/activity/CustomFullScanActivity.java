@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.bean.QRCodeResultBean;
-import com.catail.lib_commons.interfaces.AccountManager;
 import com.catail.lib_commons.interfaces.StartTakDetailsActivityManager;
 import com.catail.lib_commons.utils.Base64;
 import com.catail.lib_commons.utils.ConstantValue;

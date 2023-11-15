@@ -12,9 +12,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.SetLanguageActivity" />
-        <activity android:name=".activity.FindPasswordActivity" />
-        <activity android:name=".activity.ResetPassWordActivity" />
+
         <activity android:name=".activity.CustomFullScanActivity"/>
 
     </application>

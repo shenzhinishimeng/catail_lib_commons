@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 
@@ -13,28 +12,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.activity.UseCameraActivity;
-import com.catail.lib_commons.adapter.AddPhotoAdapter;
 import com.catail.lib_commons.adapter.PhotoSelectionAdapter;
-import com.catail.lib_commons.bean.AddPhotoBean;
 import com.donkingliang.imageselector.utils.ImageSelector;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import cn.hzw.doodle.DoodleActivity;
 import cn.hzw.doodle.DoodleParams;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
-public class PhotoUtils {
+public class PhotoSelectUtils {
     /**
      * 拍照
      */
     public static void takePhoto(Activity activity) {
         try {
-
             Intent intent = new Intent(activity,
                     UseCameraActivity.class);
             activity.startActivityForResult(intent, ConstantValue.takePhotoCode);
@@ -97,65 +88,7 @@ public class PhotoUtils {
                 .start(activity, ConstantValue.CopyWeChatImageSelector); // 打开相册
     }
 
-    /**
-     * 鲁班压缩图片工具压缩.
-     */
-    public static void ImageLubanCompression(Activity activity, ArrayList<String> images,
-                                             final List<AddPhotoBean> mPhotosList,
-                                             final AddPhotoAdapter mAddPhotoAdapter) {
-        try {
-            Luban.with(activity)
-                    .load(images)
-                    .ignoreBy(10)
-                    .setTargetDir(new File(Common.PHOTO_SRC).getAbsolutePath())
-                    .filter(path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")))
-                    .setCompressListener(new OnCompressListener() {
-                        @Override
-                        public void onStart() {
-                            // 压缩开始前调用，可以在方法内启动 loading UI
-                        }
 
-                        @Override
-                        public void onSuccess(File file) {
-                            //  压缩成功后调用，返回压缩后的图片文件
-                            String filePath = file.getAbsolutePath();
-                            Logger.e("onSuccess", filePath);
-                            Logger.e("图片路径=", filePath);
-                            ImageShow(filePath, mPhotosList, mAddPhotoAdapter, -1);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            //  当压缩过程出现问题时调用
-                            e.printStackTrace();
-                        }
-                    }).launch();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 图片列表显示
-     * position 如果是-1 说明是添加,否则就是替换.
-     */
-    public static void ImageShow(String imagePath, final List<AddPhotoBean> mPhotosList,
-                                 final AddPhotoAdapter mAddPhotoAdapter, int position) {
-        AddPhotoBean albumBean = new AddPhotoBean();
-        albumBean.setItemType(0);
-        albumBean.setPhotoTitle("");
-        albumBean.setPic(imagePath);
-        if (position == -1) {
-            if (mPhotosList.size() > 0) {
-                mPhotosList.add(mPhotosList.size() - 1, albumBean);
-            } else {
-                mPhotosList.add(mPhotosList.size(), albumBean);
-            }
-        } else {
-            mPhotosList.set(position, albumBean);
-        }
-        mAddPhotoAdapter.notifyDataSetChanged();
-    }
 
     public static int[] strs = {R.string.use_camera, R.string.choose_image};
     public static Uri captureFileUri = null;
@@ -182,7 +115,7 @@ public class PhotoUtils {
                     takePhoto(activity);
                     PhotoSelectionDialog.dismiss();
                 } else if (position == 1) {
-                    PhotoUtils.SelectMultipleFromAlbum(activity, maxselectCount);
+                    PhotoSelectUtils.SelectMultipleFromAlbum(activity, maxselectCount);
                     PhotoSelectionDialog.dismiss();
                 }
             }
