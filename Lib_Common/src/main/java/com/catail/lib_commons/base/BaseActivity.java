@@ -22,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     private final String TAG = getClass().getSimpleName();
     protected ContentResolver mContentResolver;
+    protected String msg = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Logger.e("当前Activity名称==", TAG);
         mContext = this;
         mContentResolver = getContentResolver();
+        msg = getString(R.string.processing);
         CommonsApplication.activityList.add(this);
         initImmersionBar(R.color.white_background_FFFFFF);//初始化沉浸式状态栏
         initView();
