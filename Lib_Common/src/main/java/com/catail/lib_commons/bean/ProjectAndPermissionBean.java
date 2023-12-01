@@ -13,14 +13,8 @@ public class ProjectAndPermissionBean implements Serializable {
     private String group_type;
 
     private String qa_insp_vision;//inspection 1.0 还是2.0版本
-    //    private String acci_mode;//意外的类型
-//    private String ins_mode;//安全检查的类型
-//    private String ptw_mode;//ptw的类型
-//    private String tbm_mode;//tbm的类型
-//    private String train_mode;//培训的类型
 
     private String location_require;//需要位置采集 PTW
-//    private String tbm_declare; //tbm 声明 要不要显示
 
     private String qa_clt_review;    //—qa-checklist 是否显示review选项：0不显示；1显示；
     private String qa_task_showtime;//qa_task_showtime 1显示；0不显示
@@ -100,45 +94,6 @@ public class ProjectAndPermissionBean implements Serializable {
         this.project_name = project_name;
     }
 
-//    public String getAcci_mode() {
-//        return acci_mode;
-//    }
-//
-//    public void setAcci_mode(String acci_mode) {
-//        this.acci_mode = acci_mode;
-//    }
-//
-//    public String getIns_mode() {
-//        return ins_mode;
-//    }
-//
-//    public void setIns_mode(String ins_mode) {
-//        this.ins_mode = ins_mode;
-//    }
-//
-//    public String getPtw_mode() {
-//        return ptw_mode;
-//    }
-//
-//    public void setPtw_mode(String ptw_mode) {
-//        this.ptw_mode = ptw_mode;
-//    }
-//
-//    public String getTbm_mode() {
-//        return tbm_mode;
-//    }
-//
-//    public void setTbm_mode(String tbm_mode) {
-//        this.tbm_mode = tbm_mode;
-//    }
-//
-//    public String getTrain_mode() {
-//        return train_mode;
-//    }
-//
-//    public void setTrain_mode(String train_mode) {
-//        this.train_mode = train_mode;
-//    }
 
     public String getLocation_require() {
         return location_require;
@@ -147,14 +102,6 @@ public class ProjectAndPermissionBean implements Serializable {
     public void setLocation_require(String location_require) {
         this.location_require = location_require;
     }
-
-//    public String getTbm_declare() {
-//        return tbm_declare;
-//    }
-//
-//    public void setTbm_declare(String tbm_declare) {
-//        this.tbm_declare = tbm_declare;
-//    }
 
     public String getQa_clt_review() {
         return qa_clt_review;
