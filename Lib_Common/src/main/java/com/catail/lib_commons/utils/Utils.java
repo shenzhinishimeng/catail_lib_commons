@@ -1214,4 +1214,30 @@ public class Utils {
         return dateResult;
     }
 
+    public static String getYYMMDDEEE() {
+        SimpleDateFormat alldate2 = new SimpleDateFormat("yyyyMMddEEEE");//获取日期时间——EEEE 获取到的就是当前星期几
+        String minutes2 = alldate2.format(new Date());
+
+        Logger.e("minutes2==" + minutes2);
+        String generalToken = "";
+
+        if (minutes2.contains("星期一")) {
+            generalToken = minutes2.replace("星期一", "01");
+        } else if (minutes2.contains("星期二")) {
+            generalToken = minutes2.replace("星期二", "02");
+        } else if (minutes2.contains("星期三")) {
+            generalToken = minutes2.replace("星期三", "03");
+        } else if (minutes2.contains("星期四")) {
+            generalToken = minutes2.replace("星期四", "04");
+        } else if (minutes2.contains("星期五")) {
+            generalToken = minutes2.replace("星期五", "05");
+        } else if (minutes2.contains("星期六")) {
+            generalToken = minutes2.replace("星期六", "06");
+        } else if (minutes2.contains("星期日")) {
+            generalToken = minutes2.replace("星期日", "07");
+        }
+        Logger.e("generalToken==" + generalToken);
+        return generalToken;
+    }
+
 }
