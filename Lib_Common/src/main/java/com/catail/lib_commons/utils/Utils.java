@@ -1215,10 +1215,10 @@ public class Utils {
     }
 
     public static String getYYMMDDEEE() {
-        SimpleDateFormat alldate2 = new SimpleDateFormat("yyyyMMddEEEE");//获取日期时间——EEEE 获取到的就是当前星期几
+        SimpleDateFormat alldate2 = new SimpleDateFormat("yyyyMMddEEEE",Locale.CHINESE);//获取日期时间——EEEE 获取到的就是当前星期几
         String minutes2 = alldate2.format(new Date());
 
-        Logger.e("minutes2==" + minutes2);
+//        Logger.e("minutes2==" + minutes2);
         String generalToken = "";
 
         if (minutes2.contains("星期一")) {
