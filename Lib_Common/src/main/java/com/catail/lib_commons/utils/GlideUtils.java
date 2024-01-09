@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -22,6 +23,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.catail.lib_commons.R;
+
+import me.bzcoder.easyglide.progress.EasyGlideApp;
 
 /**
  * Created by sam on 17/1/13.
@@ -66,7 +69,7 @@ public class GlideUtils {
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
 //                    .diskCacheStrategy(DiskCacheStrategy.NONE);
-            Glide.with(activity)
+            EasyGlideApp.with(activity)
                     .load(url)
                     .apply(options)
                     .listener(new RequestListener<Drawable>() {
@@ -99,7 +102,7 @@ public class GlideUtils {
                     .skipMemoryCache(false) //跳过内存缓存
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-            Glide.with(context)
+            EasyGlideApp.with(context)
                     .load(url)
                     .apply(options)
                     //                    .error(R.mipmap.empty_picture)
@@ -145,7 +148,7 @@ public class GlideUtils {
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
 
-            Glide.with(activity)
+            EasyGlideApp.with(activity)
                     .load(url)
                     .apply(options)
                     //                    .error(R.mipmap.empty_picture)
@@ -166,7 +169,7 @@ public class GlideUtils {
                     .skipMemoryCache(false) //跳过内存缓存
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-            Glide.with(context)
+            EasyGlideApp.with(context)
                     .load(url)
                     .apply(options)
                     //                    .error(R.mipmap.empty_picture)
@@ -208,7 +211,7 @@ public class GlideUtils {
                     .skipMemoryCache(false) //跳过内存缓存
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-            Glide.with(activity)
+            EasyGlideApp.with(activity)
                     .load(resoure)
                     .apply(options)
                     //                    .error(R.mipmap.empty_picture)
@@ -224,7 +227,7 @@ public class GlideUtils {
                     .skipMemoryCache(false) //跳过内存缓存
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-            Glide.with(context)
+            EasyGlideApp.with(context)
                     .load(resoure)
                     .apply(options)
                     //                    .error(R.mipmap.empty_picture)
@@ -270,7 +273,7 @@ public class GlideUtils {
                     .skipMemoryCache(false) //跳过内存缓存
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-            Glide.with(activity)
+            EasyGlideApp.with(activity)
                     .load(url)
                     .apply(options)
                     //                    .error(defaultdrawable)
@@ -291,7 +294,7 @@ public class GlideUtils {
                     .skipMemoryCache(false) //跳过内存缓存
                     .priority(Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-            Glide.with(context)
+            EasyGlideApp.with(context)
                     .load(url)
                     .apply(options)
                     //                    .error(defaultdrawable)
@@ -318,7 +321,7 @@ public class GlideUtils {
                 .skipMemoryCache(false) //跳过内存缓存
                 .priority(Priority.NORMAL)
                 .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-        Glide.with(context)
+        EasyGlideApp.with(context)
                 .load(imageUrl)
                 .apply(options)
                 .listener(new RequestListener<Drawable>() {
@@ -371,7 +374,6 @@ public class GlideUtils {
     }
 
     public static void loadCirclePic(Object obj, ImageView iv, int placeholder, int error) {
-
         RequestOptions requestOptions = new RequestOptions()
                 .centerCrop()
                 .dontAnimate()
@@ -382,7 +384,7 @@ public class GlideUtils {
                 .skipMemoryCache(false) //跳过内存缓存
                 .priority(Priority.NORMAL)
                 .diskCacheStrategy(DiskCacheStrategy.ALL);   //缓存所有版本的图像
-        Glide.with(iv.getContext())
+        EasyGlideApp.with(iv.getContext())
                 .load(obj)
                 .apply(requestOptions)
                 .into(iv);

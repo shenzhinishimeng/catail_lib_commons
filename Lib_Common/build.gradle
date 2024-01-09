@@ -2,7 +2,7 @@ plugins {
     id 'com.android.library'
 //    id 'kotlin-android'
     id 'org.jetbrains.kotlin.android'
-
+    id  'kotlin-kapt'
 }
 
 android {
@@ -74,9 +74,12 @@ dependencies {
     api 'com.bm.photoview:library:1.4.1'
     api 'top.zibin:Luban:1.1.8'//Android图片压缩工具，仿微信朋友圈压缩策略。
     //glide
-    api "com.github.bumptech.glide:glide:4.10.0"
-    api "com.github.bumptech.glide:compiler:4.10.0"
-    api "com.github.bumptech.glide:okhttp3-integration:4.10.0"
+    api "com.github.bumptech.glide:glide:4.13.2"
+    api "com.github.bumptech.glide:compiler:4.13.2"
+    api "com.github.bumptech.glide:okhttp3-integration:4.13.2"
+
+//    api 'com.github.BzCoder:EasyGlide:1.0.8' //Java实现版本
+    api 'com.github.BzCoder:EasyGlide:2.0.1' //kotlin实现版本
 
     api 'com.github.shenzhinishimeng:catail_lib_languages:1.0.1'//多语言
     api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.1'//图片选择
@@ -103,5 +106,13 @@ dependencies {
 
     //自定义dialog
     api 'com.afollestad.material-dialogs:core:3.1.1'
+
+
+
+
+
+    //统一管理依赖库.
+
+    //单独使用的依赖库.
 
 }
