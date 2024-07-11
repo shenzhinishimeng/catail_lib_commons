@@ -101,7 +101,7 @@
     <string name="home_storage">Storage</string>
     <string name="home_materials">Materials</string>
     <string name="home_logistic">Logistic</string>
-        
+
     <string name="home_inspection_ar">AR</string>
     <string name="home_inspection_cs">C&amp;S</string>
     <string name="home_inspection_me">M&amp;E</string>
@@ -627,7 +627,7 @@
     <string name="inspection_cc_group_se">SE</string>
     <string name="inspection_document_png">Document PNG</string>
     <string name="inspection_close">Close</string>
-     <string name="inspection_reply1">Reply</string>
+    <string name="inspection_reply1">Reply</string>
     <string name="inspection_filter_creator">Creator</string>
     <string name="inspection_filter_last_rectify">Last rectify</string>
     <string name="inspection_filter_create_date">Create date</string>
@@ -660,7 +660,7 @@
     <string name="inspection_inspection_created_completed_for_each_month">Inspection Created/completed for Each Month</string>
     <string name="inspection_inspection_created_each_week_by_average">Inspection created each week by average:</string>
     <string name="inspection_inspection_created_each_month_by_average">Inspection created each month by average:</string>
-    
+
     <string name="inspection_creation">Creation</string>
     <string name="inspection_completion">Completion</string>
 
