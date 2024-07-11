@@ -10,7 +10,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 21
+        minSdk 23
         targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -63,7 +63,7 @@ dependencies {
 //    api 'com.blankj:utilcode:1.31.1'  //各种工具类
 //    api 'com.blankj:utilcodex:1.31.1'
 
-    api 'com.github.getActivity:XXPermissions:18.3'
+    api 'com.github.getActivity:XXPermissions:18.65'
     api 'com.github.getActivity:Toaster:12.3'
 
     api 'me.jessyan:autosize:1.2.1'//屏幕适配
@@ -83,7 +83,12 @@ dependencies {
 
     api 'com.github.shenzhinishimeng:catail_lib_languages:1.0.1'//多语言
     api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.1'//图片选择
-    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.0'//图片编辑
+//    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.0'//图片编辑(老版本,图片路径中有doodle)
+    //todo 临时注释掉.
+    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.1'//图片编辑(老版本,图片路径中去掉doodle)
+
+//    api project(':Lib_doodle') //图片编辑摸快.
+
 
     api 'com.github.shenzhinishimeng:catail_lib_charts:1.0.2'//AAChart 统计图
     api 'com.github.shenzhinishimeng:catail_lib_MPCharts:1.0.3'//饼状图  柱状图
