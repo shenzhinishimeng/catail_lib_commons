@@ -10,4 +10,20 @@
     <string name="setting_language_english">English</string>
     <string name="setting_simplified_chinese">简体中文</string>
     <string name="setting_traditional_chinese">繁體中文</string>
+
+    <!--照片区域-->
+    <string name="use_camera">拍摄</string>
+    <string name="choose_image">从相册选择图片</string>
+
+    <string name="task_qr_project_not_same">This artifact is not in the current project</string>
+    <!--二维码扫描-->
+    <string name="identify_a_qr_code_failure">识别二维码失败</string>
+    <string name="this_type_of_qr_code_is_not_supported">不支持该类型二维码</string>
+
+    <string name="processing">处理中,请稍后...</string>
+    <string name="no_data">No Data</string>
+
+    <!--权限 -->
+    <string name="permission_rationale_message">您拒绝了我们的授权申请，请同意授权，否则无法正常使用!</string>
+    <string name="permission_denied_forever_message">我们需要一些您拒绝的权限或系统申请失败失败，请手动设置到页面授权，否则无法正常使用!</string>
 </resources>

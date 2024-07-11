@@ -104,6 +104,9 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
         } else if (flagStr.equals("defect")) {
             String projectId = getIntent().getStringExtra("projectId");
             QRCodeDealMethod(base64Str, flagStr, projectId);
+        } else if (flagStr.equals("dfma_home")) {
+            String projectId = getIntent().getStringExtra("projectId");
+            QRCodeDealMethod(base64Str, flagStr, projectId);
         }
 
         //如果需支持连扫，返回true即可
@@ -167,6 +170,14 @@ public class CustomFullScanActivity extends CaptureActivity implements CameraSca
 //                    }
 
                 } else if (flagStr.equals("defect")) {
+                    Logger.e("qrCodeResultBean.toString()==", qrCodeResultBean.toString());
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("qrcodebean", qrCodeResultBean);
+                    intent.putExtras(bundle);
+                    setResult(ConstantValue.TaskApplyQrCode, intent);
+                    CustomFullScanActivity.this.finish();
+                } else if (flagStr.equals("dfma_home")) {
                     Logger.e("qrCodeResultBean.toString()==", qrCodeResultBean.toString());
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();

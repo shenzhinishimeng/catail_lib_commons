@@ -1,35 +1,27 @@
 package com.catail.lib_commons.utils;
 
 public class ConstantValue {
+    //原来 BIMax+ 程序中的 常量
     public static int takePhotoCode = 0x1081;//拍照的requestCode和resultCode
-
     public static int QueryMaterialsRecordList = 0x0127;//materials 列表查询requestCode和resultCode
-
     public static int SelectedFiles = 0x1005;//培训/会议选择文档的requestCode和resultCode
     public static int SelectedTaskFiles = 0x1111;//图纸选择requestCode和resultCode
     public static int SelectedDocumentFiles = 0x12222;//文档选择的requestCode和resultCode
-
     public static int BIMAXModeSelected = 0x1080;//BIMAX模型选择的requestCode和resultCode
     public static int FilterCalendarDate = 0x1021;//筛选模块中选择日历时间的requestCode和resultCode
     public static int ImageEditorCode = 0x1010;//图片编辑的的requestCode和resultCode
     public static int choosePDFPhotoImg = 0x1031;//选择文件从本地
     public static int chooseNetPDFPhotoImg = 0x1032;//选择网络选择pdf文档转换成本地图片,选择后添加
-
-
     public static int DefectAddPersonCode = 0x2001;//Defect添加人员的requestCode和resultCode
     public static int DefectSendOkRefreshUI = 0x2002;//Defect 回复完刷新界面的requestCode和resultCode
     public static int DefectAddComponentCode = 0x2003;//defect 添加构件
     public static int DefectFilterCode = 0x2004;//defect筛选的requestCode 和resultCode
-
-
     public static int DefectApplyCloseActivityCode = 0x2021;//defect 申请流程结束后,关闭全部界面的code
     public static int DefectSelectTypeCode = 0x2047;//选择Defect类型
     public static int DefectSelectIssuseToPersonCode = 0x2050;//选择负责人
     public static int Defect2SubmitAndSaveCode = 0x2058;//保存和提交后的requestCode 和resultCode
-
     public static int Defect2TypeSelectCode = 0x2089; //defect2 选择类型的requestCode 和resultCode
     public static int Defect2CategorySelectCode = 0x2088;   //defect2 选择defect类型的requestCode 和resultCode
-
     public static int ChecklistFilterCode = 0x3001;//checklist筛选的requestCode 和resultCode
     public static int ChecklistEditCode = 0x3002;//checklist 编辑的requestCode和resultCode
     public static int ChecklistActionCode = 0x3006;//checklist action按钮的requestCode和resultCode
@@ -39,10 +31,7 @@ public class ConstantValue {
     public static int ChecklistFinishCode = 0x3001;
     public static int ChecklistDefectFinishCode = 0x3030;//checklist item 发起defect后的requestCode 和resultCode
     public static int ChecklistCommentFinishCode = 0x3031;//checklist item 发起评论后的requestCode 和resultCode
-
     public static int InspectionTableNAddAttachmentName = 0x3088;//表格添加文档名称的requestCode
-
-
     public static int TaskRefreshDetails = 0x4002;//materials 刷新task 详情defect列表的requestCode和 resultCode
     public static int TaskRefreshTaskList = 0x4002;//task 刷新task 列表的requestCode和 resultCode
     public static int TaskAddChecklist = 0x4006;//task 申请添加checklist 的requestCode和resultCode
@@ -51,30 +40,53 @@ public class ConstantValue {
     public static int TaskApplyDialogCreateChecklist = 0x4022;//task 申请界面 dialog 创建checklist的RequestCode 和resultCode
     public static int TaskDrawingSaveCode = 0x4023;//task drawing 界面pin图标的RequestCode 和resultCode
     public static int TaskDrawingListSaveCode = 0x4025;//task drawing 列表pin图标的RequestCode 和resultCode
-
     public static int InspectionTypeToDetails = 0x0364;//inspection类型页面第一次申请打开详情页面的RequestCode 和resultCode
     public static int InspectionFilterCode = 0x0369;//inspection 列表筛选的RequestCode 和resultCode
     public static int InspectionListFresh = 0x0370;//inspection 列表刷新的RequestCode 和resultCode
-
-
     public static int ProgressPlanRefreshCode = 0x0501;//progress plan 刷新 requestCode 和resultCode
     public static int ProgressSubTaskOperateCode = 0x0513;//progress sub task 申请编辑的requestCode和 resultCode
     public static int ProgressSubTaskCheckCode = 0x0517;//progress check in  check out的requestCode和 resultCode
     public static int ProgressSubTaskDefectCode = 0x0509;//progress 创建defect 的requestCode和 resultCode
     public static int ProgressSubTaskCompleteCode = 0x0519;//progress 子任务关闭--总包的requestCode和 resultCode
     public static int ProgressDefectCreateCode = 0x0520;//progress defect 创建的后刷新的requestCode和 resultCode
-
-
     public static int StorageCreateCode = 0x0603;// storage 创建的    requestCode 和resultCode
     public static int StorageEditStatusCode = 0x0608;//// storage编辑状态    requestCode 和resultCode
-
     public static int CopyWeChatImageSelector = 0x9999;//仿微信图片选择的request_Code和Result_Code
-
     public static int YZModelOptionDialogCode = 0x9999;//模型点击隐藏弹窗request_Code和Result_Code
     public static int YZModelOptionHideDialogCode = 0x9998;//模型点击隐藏弹窗request_Code和Result_Code
     public static int YZModelOptionIsolateDialogCode = 0x9997;//模型点击隔离弹窗request_Code和Result_Code
-
     public static int ChecklistAddPersonCode = 0x3001;//Checklist添加人员的requestCode和resultCode
-
     public static final String COMMON_PERSON = "common_person";//保存常用人
+    public static int QueryAllAcknowledgeSubConLists1=0x0269;//选择subcon to acknowledge的公司.
+    //原来 CSD 程序中的 常量
+    public static int MemberAddResultCode = 0x1001;//人员入场的请求码和结果码
+    public static int MemberDelResultCode = 0x1002;//人员出场的请求码和结果码
+    public static int selectPhotoFromAlbum = 0x1004;//从相册选择图片的请求码和结果码
+    public static int personLiableCode = 0x1005;//二维码扫描添加人员的请求码和结果码
+    public static int personLiableSeletedCode = 0x1006;//总包,分包负责人选择
+    public static int CCpersonSeletedCode = 0x1007;//总包,分包负责人选择
+    public static int choosePDFFromFile = 0x1030;//选择文件从本地
+    public static int CATAddChecklist = 0x1040;//CAT 功能选择checklist的requestCode和resultCode
+    public static int CATAddForm1Chkeclist = 0x1050;//CAT填完检查单1的回调
+    public static int CATAddForm2Chkeclist = 0x1051;//CAT填完检查单2的回调
+    public static int CATConsultantReplyConde = 0x1052;//cat 顾问回复回调
+    public static int BvscEditInfoCode = 0x1012;//BVSC 编辑后确认
+    public static int BvscCaseAddDefectApplyCode = 0x1038;//Bvsc申请小单子
+    public static int BvscCaseDealDefectChecklistCode = 0x1039;//bvsc处理小单子.
+    public static int AuthVstFilterCode = 0x1101;//AuthVst功能 筛选的code
+    public static int chooseLocalPDFPhotoImg = 0x1091;//从本地选择 pdf图片
+    public static int ImagePdfEditorCode = 0x1093;//图片编辑的的requestCode和resultCode
+    public static int CATTDQRScanCode = 0X1900;//CATTD 顾问考勤
+    public static int GPSLocationServiceCode = 0x9998;//获取GPS 定位权限的请求码和结果码
+    public static int AuditChklApplyCode = 0x1121;//audit chkl 申请创建的request_Code和Result_Code
+    public static int AuditChklRMK_NCCode = 0x1124;//audit chkl 回复RMK_NC的request_Code和Result_Code
+    public static int STOFilterCode = 0x1199;//sto 筛选request_Code和Result_Code
+    public static int AIVehicleTrackingPic = 0x0001;//C6,C8 图片选择的requestCode和resultCode
+    public static int AIVehicleTrackingPic_C6 = 0x0006;//C6 图片选择的requestCode和resultCode
+    public static int AIVehicleTrackingPic_C8 = 0x0008;//C8 图片选择的requestCode和resultCode
+    public static int AIVehicleTrackingGetPic_C6 = 0x7070;//截图,手动抓拍的requestCode
+    public static int AIVehicleTrackingGetPic_C8 = 0x7071;//截图,手动抓拍的requestCode
+    public static int AIVehicleTrackingScreenshot = 0x7778;//截图的resultCode
+    public static int AIVehicleTrackingTakePhoto = 7779;//手动抓拍的resultCode
+    public static int AIVAActionCode = 0x1100;//AIVA审批的requestCode 和resultCode
 }

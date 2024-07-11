@@ -35,7 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         mContentResolver = getContentResolver();
         msg = getString(R.string.processing);
         CommonsApplication.activityList.add(this);
-        initImmersionBar(R.color.white_background_FFFFFF);//初始化沉浸式状态栏
+//        initImmersionBar(R.color.white_background_FFFFFF);//初始化沉浸式状态栏
+        initImmersionBar(R.color.blue_background_E8F9FD);//初始化沉浸式状态栏
         initView();
         initData();
     }

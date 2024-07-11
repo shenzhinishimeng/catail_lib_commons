@@ -14,6 +14,8 @@ public class Config {
 
     public static final String CHECKLIST_COMMENT_APPLY_USER = "CHECKLIST_COMMENT_APPLY_USER";
 
+    public static final String JPUSHALIASBEAN = "jpush_alias_bean";//用来存储极光推送的名称
+
     public static final String LANGUAGE_KEY = "sysLanguageName";// 语言选择
     public static final String MULTILANGUAGE_KEY = "MultiLanguage_key";//新的多语言选择
 

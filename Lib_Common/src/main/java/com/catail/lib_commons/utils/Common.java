@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.catail.lib_commons.CommonsApplication;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +24,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Common {
-    public static final String PHOTO_SRC = Environment.getExternalStorageDirectory().getPath() + "/Pictures/"; // 图片存储路径
+//    public static final String PHOTO_SRC = Environment.getExternalStorageDirectory().getPath() + "/Pictures/"; // 图片存储路径
+    public static final String PHOTO_SRC = CommonsApplication.getContext().getExternalCacheDir() + "/Pic"; // 图片存储路径
 
     /**
      * 像素转屏幕无关像素（dp）

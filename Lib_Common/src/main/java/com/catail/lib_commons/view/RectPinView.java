@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.bean.QueryDMDLPDefectListDetailsResultBean;
+import com.catail.lib_commons.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,12 +108,12 @@ public class RectPinView extends SubsamplingScaleImageView {
 
         paint.setAntiAlias(true);
 
-//        Logger.e("pins=="+pins.size());
-//        Logger.e("PointLists=="+PointLists.size());
+        Logger.e("pins==" + pins.size());
+        Logger.e("PointLists==" + PointLists.toString());
         if (PointLists.size() > 0) {
             //多个的
             for (int i = 0; i < PointLists.size(); i++) {
-
+//                Logger.e("pins.get(i).getWidth()==" + pins.get(i).getWidth());
                 //画图钉
                 sourceToViewCoord(PointLists.get(i), vPin);
                 float vX = vPin.x - (pins.get(i).getWidth() / 2);
@@ -247,7 +248,6 @@ public class RectPinView extends SubsamplingScaleImageView {
     }
 
     private void showDefect2Pin(int i) {
-        //0 Active 1 Onhold 2 Closed 3 Delay 9 删除
         if (mDefectDataList.get(i).getStatus() == -1) {
             float density = getResources().getDisplayMetrics().densityDpi;
             Bitmap pin = BitmapFactory.decodeResource(this.getResources(), R.mipmap.rect_blue_pin);
@@ -272,7 +272,8 @@ public class RectPinView extends SubsamplingScaleImageView {
             float h = (density / 420f) * pin.getHeight();
             pin = Bitmap.createScaledBitmap(pin, (int) w, (int) h, true);
             pins.add(pin);
-        } else if (mDefectDataList.get(i).getStatus() == 10) {
+        } else if (mDefectDataList.get(i).getStatus() == 10
+                || mDefectDataList.get(i).getStatus() == 4) {
             float density = getResources().getDisplayMetrics().densityDpi;
             Bitmap pin = BitmapFactory.decodeResource(this.getResources(), R.mipmap.rect_red_pin);
             float w = (density / 420f) * pin.getWidth();

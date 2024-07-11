@@ -10,4 +10,21 @@
     <string name="setting_language_english">English</string>
     <string name="setting_simplified_chinese">简体中文</string>
     <string name="setting_traditional_chinese">繁體中文</string>
+
+    <!--照片区域-->
+    <string name="use_camera">Use Camera</string>
+    <string name="choose_image">Choose Image</string>
+
+    <string name="task_qr_project_not_same">This artifact is not in the current project</string>
+    <!--二维码扫描的字段-->
+    <string name="identify_a_qr_code_failure">Identify a QR code failure</string>
+    <string name="this_type_of_qr_code_is_not_supported">This type of qr code is not supported</string>
+
+    <string name="processing">Processing...</string>
+    <string name="no_data">No Data</string>
+
+    <!--权限 -->
+    <string name="permission_rationale_message">You have rejected us to apply for authorization, please agree to authorization, otherwise the function can\'t be used normally!</string>
+    <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
+
 </resources>

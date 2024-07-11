@@ -40,17 +40,17 @@ public class UseCameraActivity extends Activity {
 
             mImageFilePath = savedInstanceState.getString(IMAGEFILEPATH);
 
-            Log.e("123--savedInstanceState", mImageFilePath);
+            Logger.e("123--savedInstanceState", mImageFilePath);
 
             File mFile = new File(IMAGEFILEPATH);
             if (mFile.exists()) {
                 Intent rsl = new Intent();
                 rsl.putExtra(IMAGE_PATH, mImageFilePath);
                 setResult(Activity.RESULT_OK, rsl);
-                Log.e("123--savedInstanceState", "图片拍摄成功");
+                Logger.e("123--savedInstanceState", "图片拍摄成功");
                 finish();
             } else {
-                Log.e("123--savedInstanceState", "图片拍摄失败");
+                Logger.e("123--savedInstanceState", "图片拍摄失败");
             }
         }
 
@@ -64,7 +64,7 @@ public class UseCameraActivity extends Activity {
     public void initialUI() {
         //根据时间生成 后缀为  .jpg 的图片
         long ts = System.currentTimeMillis();
-        mImageFilePath = getCameraPath() + ts + ".jpg";
+        mImageFilePath = getCameraPath() +"/"+ ts + ".jpg";
         File out = new File(mImageFilePath);
         if (!out.exists()) {
             try {

@@ -47,7 +47,6 @@ class PieChartView : PieChart {
         chart.getDescription().setEnabled(false)
         chart.setExtraOffsets(5.0f, 10.0f, 5.0f, 5.0f)
         chart.setDragDecelerationFrictionCoef(0.95f)
-
 //        chart.setCenterTextTypeface(tfLight);
         chart.setCenterText(generateCenterSpannableText())
         chart.setDrawHoleEnabled(true)
@@ -61,6 +60,8 @@ class PieChartView : PieChart {
         // enable rotation of the chart by touch
         chart.setRotationEnabled(true)
         chart.setHighlightPerTapEnabled(true)
+
+        chart.setDrawEntryLabels(false)
 
         // chart.setUnit(" €");
         // chart.setDrawUnitsInChart(true);
@@ -127,14 +128,29 @@ class PieChartView : PieChart {
         dataSet.setSelectionShift(5f)
 
         // add a lot of colors
+
+        val RFI_RFA_SD_COLOR = intArrayOf(
+            ColorTemplate.rgb("#FF8F52"),
+            ColorTemplate.rgb("#6FC564"),
+            ColorTemplate.rgb("#75B7FD"),
+            ColorTemplate.rgb("#FFD073"),
+            ColorTemplate.rgb("#EB07C6"),
+            ColorTemplate.rgb("#F04141"),
+            ColorTemplate.rgb("#CAE32D"),
+            ColorTemplate.rgb("#09D442"),
+            ColorTemplate.rgb("#07D6D6")
+        )
+
         val colors = ArrayList<Int>()
         if (type.equals("Checklist")) {
             for (c in ColorTemplate.CHECKLIST_STATUS_COLORS) colors.add(c)
-        }else if(type.equals("Inspection_status")){
+        } else if (type.equals("Inspection_status")) {
             for (c in ColorTemplate.INSPECTION_STATUS_COLORS) colors.add(c)
 //            for (c in ColorTemplate.INSPECTION_STATUS_COLORS) colors.add(c)
-        }else if(type.equals("Inspection_type")){
+        } else if (type.equals("Inspection_type")) {
             for (c in ColorTemplate.INSPECTION_CHECKLIST_TYPE_COLORS) colors.add(c)
+        } else if (type.equals("rfi_rfa_sd")) {
+            for (c in RFI_RFA_SD_COLOR) colors.add(c)
         }
 //        for (i in typeNameLists.indices) {
 //            if (typeNameLists.get(i)
@@ -170,6 +186,116 @@ class PieChartView : PieChart {
         //        data.setValueTypeface(tfLight);
         mChart!!.data = data
 
+        //如果是RFI RFA SD功能 不显示饼状图的比例.
+        if (type.equals("rfi_rfa_sd")) {
+            for (set in mChart!!.getData().getDataSets()) {
+                set.setDrawValues(false)
+            }
+        }
+        Logger.e("centerText==" + centerText)
+        // undo all highlights
+        mChart!!.highlightValues(null)
+        mChart!!.setCenterTextSize(20.0f)
+        mChart!!.centerText = centerText
+        mChart!!.invalidate()
+    }
+
+
+    //    private fun setData(count: Int, range: Float, result: ResultBean) {
+    fun setData(
+        activity: BaseActivity,
+        count: Int,
+        range: Float,
+        result: ArrayList<Int>,
+        typeNameLists: ArrayList<String>,
+        centerText: String,
+        colorLists: ArrayList<Int>,
+        type: String
+    ) {
+        val entries: ArrayList<PieEntry> = ArrayList<PieEntry>()
+        for (i in 0 until count) {
+            Logger.e("result.get(i).toFloat(),==" + result.get(i).toFloat())
+            entries.add(
+                PieEntry(
+//                    result.get(i) * range / result.size,
+                    result.get(i).toFloat(),
+                    typeNameLists.get(i),
+                    activity.resources.getDrawable(R.mipmap.ic_launcher)
+                )
+            )
+        }
+        val dataSet = PieDataSet(entries, "")
+        dataSet.setDrawIcons(false)
+        dataSet.setSliceSpace(3f)
+        dataSet.setIconsOffset(MPPointF(0f, 40f))
+        dataSet.setSelectionShift(5f)
+
+        // add a lot of colors
+
+        val RFI_RFA_SD_COLOR = intArrayOf(
+            ColorTemplate.rgb("#FF8F52"),
+            ColorTemplate.rgb("#6FC564"),
+            ColorTemplate.rgb("#75B7FD"),
+            ColorTemplate.rgb("#FFD073"),
+            ColorTemplate.rgb("#EB07C6"),
+            ColorTemplate.rgb("#F04141"),
+            ColorTemplate.rgb("#CAE32D"),
+            ColorTemplate.rgb("#09D442"),
+            ColorTemplate.rgb("#07D6D6")
+        )
+
+        val colors = ArrayList<Int>()
+        if (type.equals("Checklist")) {
+            for (c in ColorTemplate.CHECKLIST_STATUS_COLORS) colors.add(c)
+        } else if (type.equals("Inspection_status")) {
+            for (c in ColorTemplate.INSPECTION_STATUS_COLORS) colors.add(c)
+//            for (c in ColorTemplate.INSPECTION_STATUS_COLORS) colors.add(c)
+        } else if (type.equals("Inspection_type")) {
+            for (c in ColorTemplate.INSPECTION_CHECKLIST_TYPE_COLORS) colors.add(c)
+        } else if (type.equals("rfi_rfa_sd")) {
+            for (c in RFI_RFA_SD_COLOR) colors.add(c)
+        }
+        colors.addAll(colorLists);
+//        for (i in typeNameLists.indices) {
+//            if (typeNameLists.get(i)
+//                    .equals(activity.getResources().getString(R.string.ins_created))
+//            ) {
+//                colors.add(ColorTemplate.CHECKLIST_STATUS_0)
+//            } else if (typeNameLists.get(i)
+//                    .equals(activity.getResources().getString(R.string.ins_ongoing))
+//            ) {
+//                colors.add(ColorTemplate.CHECKLIST_STATUS_1)
+//            } else if (typeNameLists.get(i)
+//                    .equals(activity.getResources().getString(R.string.ins_completed))
+//            ) {
+//                colors.add(ColorTemplate.CHECKLIST_STATUS_3)
+//            }
+//        }
+//        CHECKLIST_STATUS_0
+
+//        for (c in ColorTemplate.VORDIPLOM_COLORS) colors.add(c)
+//        for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
+//        for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
+//        for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
+//        for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
+//        colors.add(ColorTemplate.getHoloBlue())
+
+        dataSet.setColors(colors)
+        //dataSet.setSelectionShift(0f);
+        val data = PieData(dataSet)
+        data.setValueFormatter(PercentFormatter(DecimalFormat("###,###,##")))//显示整数
+//        data.setValueFormatter(DefaultValueFormatter(1)) //自己修改的方法
+        data.setValueTextSize(11f)
+        data.setValueTextColor(Color.WHITE)
+        //        data.setValueTypeface(tfLight);
+        mChart!!.data = data
+
+        //如果是RFI RFA SD功能 不显示饼状图的比例.
+        if (type.equals("rfi_rfa_sd")) {
+            for (set in mChart!!.getData().getDataSets()) {
+                set.setDrawValues(false)
+            }
+        }
         Logger.e("centerText==" + centerText)
         // undo all highlights
         mChart!!.highlightValues(null)

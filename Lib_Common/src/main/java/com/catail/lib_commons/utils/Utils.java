@@ -56,6 +56,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -632,11 +634,11 @@ public class Utils {
         } else {
             if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate)) {
                 if (TextUtils.isEmpty(startDate)) {
-                    ToastUtils.toastStrContext(activity,activity.getResources().getString(R.string.please_select_a_start_date));
+                    ToastUtils.toastStrContext(activity, activity.getResources().getString(R.string.please_select_a_start_date));
                 }
 
                 if (TextUtils.isEmpty(endDate)) {
-                    ToastUtils.toastStrContext(activity,activity.getResources().getString(R.string.please_select_an_end_date));
+                    ToastUtils.toastStrContext(activity, activity.getResources().getString(R.string.please_select_an_end_date));
                 }
                 return false;
             } else {
@@ -644,7 +646,7 @@ public class Utils {
                 String endDateYY = endDate.substring(0, 4);
 
                 if (!startDateYY.equals(endDateYY)) {
-                    ToastUtils.toastStrContext(activity,activity.getResources().getString(R.string.please_select_the_same_year));
+                    ToastUtils.toastStrContext(activity, activity.getResources().getString(R.string.please_select_the_same_year));
                     return false;
                 } else {
                     return true;
@@ -653,7 +655,6 @@ public class Utils {
         }
 
     }
-
 
 
     public static double Keep1Decimal(double num1) {
@@ -700,8 +701,6 @@ public class Utils {
 
 
     public static Dialog loadingDialog;
-
-
 
 
     /**
@@ -1159,7 +1158,7 @@ public class Utils {
 
 
     public static void setLinearLayoutViewWidthAndHeight(AppCompatActivity activity,
-                                                         View view){
+                                                         View view) {
 
         int width = activity.getWindowManager().getDefaultDisplay().getWidth();
         int height = activity.getWindowManager().getDefaultDisplay().getHeight();
@@ -1196,7 +1195,7 @@ public class Utils {
     }
 
 
-    public static boolean judgeCurrentDate(String beforeDate,String afterDate) {
+    public static boolean judgeCurrentDate(String beforeDate, String afterDate) {
 
         Date currentDate = DateFormatUtils.CN2DateNo(beforeDate);
         Date selectDate = DateFormatUtils.CN2DateNo(afterDate);
@@ -1215,29 +1214,39 @@ public class Utils {
     }
 
     public static String getYYMMDDEEE() {
-        SimpleDateFormat alldate2 = new SimpleDateFormat("yyyyMMddEEEE",Locale.CHINESE);//获取日期时间——EEEE 获取到的就是当前星期几
-        String minutes2 = alldate2.format(new Date());
+        try {
+            SimpleDateFormat alldate2 = new SimpleDateFormat("yyyyMMddEEEE", Locale.CHINESE);//获取日期时间——EEEE 获取到的就是当前星期几
+            String minutes2 = alldate2.format(new Date());
 
-//        Logger.e("minutes2==" + minutes2);
-        String generalToken = "";
+            Logger.e("minutes2==" + minutes2);
+            String generalToken = "";
 
-        if (minutes2.contains("星期一")) {
-            generalToken = minutes2.replace("星期一", "01");
-        } else if (minutes2.contains("星期二")) {
-            generalToken = minutes2.replace("星期二", "02");
-        } else if (minutes2.contains("星期三")) {
-            generalToken = minutes2.replace("星期三", "03");
-        } else if (minutes2.contains("星期四")) {
-            generalToken = minutes2.replace("星期四", "04");
-        } else if (minutes2.contains("星期五")) {
-            generalToken = minutes2.replace("星期五", "05");
-        } else if (minutes2.contains("星期六")) {
-            generalToken = minutes2.replace("星期六", "06");
-        } else if (minutes2.contains("星期日")) {
-            generalToken = minutes2.replace("星期日", "07");
+            if (minutes2.contains("星期一")) {
+                generalToken = minutes2.replace("星期一", "01");
+            } else if (minutes2.contains("星期二")) {
+                generalToken = minutes2.replace("星期二", "02");
+            } else if (minutes2.contains("星期三")) {
+                generalToken = minutes2.replace("星期三", "03");
+            } else if (minutes2.contains("星期四")) {
+                generalToken = minutes2.replace("星期四", "04");
+            } else if (minutes2.contains("星期五")) {
+                generalToken = minutes2.replace("星期五", "05");
+            } else if (minutes2.contains("星期六")) {
+                generalToken = minutes2.replace("星期六", "06");
+            } else if (minutes2.contains("星期日")) {
+                generalToken = minutes2.replace("星期日", "07");
+            }
+            Logger.e("generalToken==" + generalToken);
+            return generalToken;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
-        Logger.e("generalToken==" + generalToken);
-        return generalToken;
     }
 
+    public static StringWriter printException(Exception e) {
+        StringWriter stringWriter = new StringWriter();
+        e.printStackTrace(new PrintWriter(stringWriter, true));
+        return stringWriter;
+    }
 }

@@ -13,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.catail.lib_commons.R;
 import com.catail.lib_commons.activity.UseCameraActivity;
 import com.catail.lib_commons.adapter.PhotoSelectionAdapter;
+import com.catail.lib_commons.bean.AddPhotoBean;
 import com.donkingliang.imageselector.utils.ImageSelector;
 
 import java.util.Date;
+import java.util.List;
 
 import cn.hzw.doodle.DoodleActivity;
 import cn.hzw.doodle.DoodleParams;
@@ -85,6 +87,34 @@ public class PhotoSelectUtils {
                 .setSingle(false)  //设置是否单选
                 .setViewImage(true) //是否点击放大图片查看,，默认为true
                 .setMaxSelectCount(maxselectCount)
+                .start(activity, ConstantValue.CopyWeChatImageSelector); // 打开相册
+    }
+
+    /**
+     * 从相册选择图片
+     **/
+    public static void SelectMultipleFromAlbum(Activity activity,
+                                               List<AddPhotoBean> mPhotosList,
+                                               int customCount) {
+        //如果 customCount!=0 则说明 自定义图片的数量,如果为0,则用9张
+        int picCount = 0;
+        if (customCount != 0) {
+            picCount = customCount;
+        } else {
+            int picTotal = 0;
+            for (int i = 0; i < mPhotosList.size(); i++) {
+                if (mPhotosList.get(i).getItemType() == 0) {
+                    picTotal++;
+                }
+            }
+            picCount = 9 - picTotal;
+        }
+        //多选
+        ImageSelector.builder()
+                .useCamera(false) // 设置是否使用拍照
+                .setSingle(false)  //设置是否单选
+                .setViewImage(true) //是否点击放大图片查看,，默认为true
+                .setMaxSelectCount(picCount)
                 .start(activity, ConstantValue.CopyWeChatImageSelector); // 打开相册
     }
 
