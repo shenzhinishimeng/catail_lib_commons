@@ -85,9 +85,9 @@ dependencies {
     api 'com.github.shenzhinishimeng:catail_lib_languages:1.0.1'//多语言
     api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.1'//图片选择
 //    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.0'//图片编辑(老版本,图片路径中有doodle)
+//    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.1'//图片编辑(老版本,图片路径中去掉doodle)
+    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.12'//图片编辑(老版本,图片路径中去掉doodle)
     //todo 临时注释掉.
-    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.1'//图片编辑(老版本,图片路径中去掉doodle)
-
 //    api project(':Lib_doodle') //图片编辑摸快.
 
 
