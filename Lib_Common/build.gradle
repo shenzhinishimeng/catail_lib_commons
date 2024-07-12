@@ -8,11 +8,11 @@ plugins {
 
 android {
     namespace 'com.catail.lib_commons'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 23
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -84,9 +84,8 @@ dependencies {
 
     api 'com.github.shenzhinishimeng:catail_lib_languages:1.0.1'//多语言
     api 'com.github.shenzhinishimeng:catail_lib_imageselector:1.0.1'//图片选择
-//    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.0'//图片编辑(老版本,图片路径中有doodle)
-//    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.1'//图片编辑(老版本,图片路径中去掉doodle)
-    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.12'//图片编辑(老版本,图片路径中去掉doodle)
+    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.1'//图片编辑(老版本,图片路径中去掉doodle)
+//    api 'com.github.shenzhinishimeng:catail_lib_doodle:1.0.19'
     //todo 临时注释掉.
 //    api project(':Lib_doodle') //图片编辑摸快.
 
@@ -136,7 +135,7 @@ afterEvaluate {
                 //groupId通常是自己的gitee或者GitHub的账户地址
                 groupId = group
                 //artifactId通常是指待发布项目的名称，也就是别名
-                artifactId = 'Lib_commons'
+                artifactId = 'Lib_Common'
                 //version通常是指待发布项目的版本号，这里是写死的，通常我们取项目versionName
                 version = version
             }
